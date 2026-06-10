@@ -2,3 +2,5 @@ theme: jekyll-theme-primer
 title: pjX｜エンジニア教育カリキュラムの設計
 lang: ja
 markdown: CommonMarkGhPages
+commonmark:
+  extensions: ["strikethrough", "autolink", "table", "tagfilter"]
