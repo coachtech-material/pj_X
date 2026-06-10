@@ -19,15 +19,16 @@ AI の進化に伴い、コードを書くだけでなく上流工程（要件�
 
 ## 閲覧について
 
-- ドキュメントは **GitHub上でそのまま閲覧する**（Markdownがレンダリング表示される。スマホはGitHubアプリでも可）。
-- 閲覧にはこのリポジトリへのアクセス権が必要。メンバーには Settings → Collaborators and teams から閲覧権限（Read）を付与する。
+- **公開サイト（GitHub Pages）**: https://coachtech-material.github.io/pj_X/ — `docs/` 配下のドキュメントが閲覧できる。mainへpushすると自動更新される。
+- GitHub上でもそのまま閲覧できる（Markdownがレンダリング表示される。スマホはGitHubアプリでも可）。
 
 ## 運用ルール
 
+- **このリポジトリは公開（public）**。社外秘・個人情報・受講者情報は書かない。
 - **正とするのは `docs/` 配下の Markdown ファイル**。変換元スプレッドシート（TSV）のアーカイブは削除済み。必要な場合は初版タグ `v0-kickoff` 時点のファイルを参照する。
 - 論点のステータス（未決・仮決・仮合意・宿題・要確認・検討中・未着手）は [docs/06_論点.md](docs/06_論点.md) で管理する。
 - **MVP対象外の項目は削除せず [docs/07_MVP対象外.md](docs/07_MVP対象外.md) に移す**。学習項目の番号は元スプシとの対応を保つため欠番のまま詰めない。
-- まとまった修正はPull Request経由で行い、マイルストーンごとに `vN-名前` 形式のタグを打つ。修正前後の差分はタグ間のCompare（例: [v0→v1](https://github.com/estra-inc/pj_X/compare/v0-kickoff...v1-mvp)）で見る。
+- まとまった修正はPull Request経由で行い、マイルストーンごとに `vN-名前` 形式のタグを打つ。修正前後の差分はタグ間のCompare（例: [v0→v1](https://github.com/coachtech-material/pj_X/compare/v0-kickoff...v1-mvp)）で見る。
 
 ## 到達レベルの凡例
 
