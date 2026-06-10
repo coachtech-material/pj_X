@@ -1,1 +1,8 @@
 .DS_Store
+
+# 教材執筆フレームワーク
+.claude/settings.local.json
+
+# Python (github-pages スキルの同梱スクリプト由来)
+__pycache__/
+*.pyc
