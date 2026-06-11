@@ -12,7 +12,7 @@
 | **吸収** | 独立 Section にせず、他項目・他 Section の一部として扱う |
 | **削除** | スコープ外（理由を記載） |
 
-**配置先**は Part-Chapter（例: P2-2 ＝ Part 2 の Chapter 2）。
+**配置先**は Part-Chapter（例: P2-2 ＝ Part 2 の Chapter 2）。配置先が前提とする Part 構成は旧 5 Part 案（入門＋思考＋仕様化＋実行＋仕組み化）の仮置きで、Part 構成の確定（ISSUES.md No.13）後に振り直す。Web アプリケーション関連の削除・吸収判定は見直し予定（ISSUES.md No.12）。
 
 ## ビジネス（No.1〜35）
 
