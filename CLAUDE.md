@@ -92,12 +92,12 @@ CLAUDE.md は教材の哲学（WHO / WHY / WHAT / HOW）を定義し、`OUTLINE.
 
 ## プロジェクトマップ（MAP）
 
-執筆ルールは `.claude/rules/writing.md` を参照。未決の論点は `ISSUES.md` で管理する。
+執筆ルールは `.claude/rules/writing.md` を参照。未決の論点は `docs/ISSUES.md` で管理する。
 
 ### 参考資料
 
 - **技術面の正**: Anthropic 公式ドキュメント（https://code.claude.com/docs/ ）。機能・手順・ベストプラクティスは必ず公式で裏取りする
-- **ビジネス・思考系の資産**: `docs/`（過去の設計資料）。思考法・要求整理・IT/Web 基礎・心構え等の学習項目定義を参照元として再利用する（本カリキュラムへの対応表は `TRIAGE.md`）
+- **ビジネス・思考系の資産**: `docs/` の学習項目体系。思考法・要求整理・IT/Web 基礎・心構え等の学習項目定義を参照元として再利用する（本カリキュラムへの対応表は `docs/TRIAGE.md`）
 - **概念の参照**: プロンプト → コンテキスト → ハーネスの進化整理（ハーネスエンジニアリング関連の公開記事）、SDD（仕様駆動開発）の方法論
 
 ### Skills
@@ -117,16 +117,19 @@ CLAUDE.md は教材の哲学（WHO / WHY / WHAT / HOW）を定義し、`OUTLINE.
 project-root/
 ├── CLAUDE.md                # 教材の哲学（WHO/WHY/WHAT/HOW/MAP）
 ├── OUTLINE.md               # カリキュラム設計
-├── ISSUES.md                # 論点・懸念の管理
-├── TRIAGE.md                # 旧学習項目（docs/04）の対応表
 ├── .claude/
 │   ├── rules/writing.md     # 執筆ルール
 │   ├── skills/              # Skill 定義
 │   └── settings.json
 ├── curriculums/             # 教材本体
-├── docs/                    # 過去の設計資料（参照元）
+├── docs/                    # 設計・検討資料
+│   ├── ISSUES.md            # 論点・懸念の管理
+│   ├── TRIAGE.md            # 学習項目（docs/04）の対応表
+│   └── ...                  # 学習項目体系などの参照資料
 └── assets/                  # 画像
 ```
+
+ルート直下に置くドキュメントは、正となる `CLAUDE.md` と `OUTLINE.md` の2つのみ。論点管理・対応表などの検討資料は `docs/` に置く。
 
 **3層**（Part > Chapter > Section）:
 - `curriculums/part-XX_タイトル/chapter-XX_タイトル/X-X-X_タイトル.md`
