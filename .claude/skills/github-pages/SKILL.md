@@ -3,12 +3,16 @@ name: github-pages
 description: |
   教材リポジトリ（curriculums/ 配下の Part > Chapter > Section 構造）を MkDocs Material + GitHub Actions で GitHub Pages として公開・更新するワークフロー。build_docs.py で日本語パス→英語スラッグ変換 → mkdocs build --strict → GitHub Actions で Pages にデプロイする。
   「GitHub Pages で公開して」「教材をページ化して」「MkDocs サイトにして」「公開サイトを更新して」「サイトのテーマカラーを変えて」「デプロイを確認して」など、教材の Web 公開・サイト構築・公開後の更新・テーマ変更・デプロイ確認に関する依頼で使用する。新規構築にも既存サイトの更新にも使う。
-argument-hint: "[new|update|deploy] [追加指示(任意)]"
+argument-hint: "<client> [new|update|deploy] [追加指示(任意)]"
 ---
 
 # 教材を GitHub Pages で公開する
 
 **入力**: $ARGUMENTS
+
+**対象案件**: 第1引数は案件スラッグ `<client>`。教材・ビルド成果物（`curriculums/`・`mkdocs.yml`・生成される `docs/`・`site/`）は `clients/<client>/` 配下に置き、同梱スクリプトはカレントを `clients/<client>/` にして実行すれば既存の相対パスのまま動く。一方、Git／Pages のプラミング（`.github/workflows/`・`gh api .../pages`・`main` への push）はリポジトリ単位（モノレポ共通）である点に注意する。
+
+> ⚠️ **1 リポジトリ＝GitHub Pages 1 サイト**のため、複数案件をそれぞれ独立 URL で公開はできない。本事業の配信は LMS（教材リポジトリが正、LMS が配信面）なので、本スキルは主に `clients/<client>/` 単位の **ローカルビルド／プレビュー** に使う。特定案件を実際に Pages 公開する運用（サブパス配信／別リポ切り出し等）は必要時に決める。
 
 この教材を、**MkDocs Material + GitHub Actions** 構成で GitHub Pages に公開する。`curriculums/`（日本語ディレクトリ・ファイル名の Part > Chapter > Section）を `build_docs.py` が英語スラッグの `docs/` に変換し、`mkdocs build` で静的サイトを生成、`main` への push で GitHub Actions が自動デプロイする。
 

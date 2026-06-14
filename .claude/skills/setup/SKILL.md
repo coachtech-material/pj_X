@@ -5,7 +5,7 @@ description: |
   CLAUDE.md の哲学（WHO/WHY/WHAT/HOW/MAP）を対話的に定義し、その哲学を OUTLINE.md の構造に MECE 分解で落とし込む。
   最後に writing.md の執筆ルール（語りかけの人格・用語テーブル）を調整する。
   「セットアップして」「教材を始めたい」「OUTLINE を作りたい」「構成を見直したい」など、教材の設計に関する依頼で使用する。
-argument-hint: "[追加指示(任意)]"
+argument-hint: "[<client>] [追加指示(任意)] - <client> 省略時は骨子・事業設計"
 ---
 
 # 教材プロジェクトのセットアップ
@@ -24,6 +24,14 @@ CLAUDE.md（哲学）          OUTLINE.md（構造）          writing.md（ル�
 ```
 
 **入力**: $ARGUMENTS
+
+## モード（骨子設計 / 案件特化）
+
+- **`<client>` 指定時（案件特化）**: root `OUTLINE.md`（骨子）・`CLAUDE.md`（事業哲学）・`library/`（題材）を生成元に、その案件の業務文脈ヒアリングから `clients/<client>/CLAUDE.md`（案件の哲学＝ペルソナ・職種・合意した成果指標）と `clients/<client>/OUTLINE.md`（骨子から特化したカリキュラム設計）を生成し、`clients/<client>/{curriculums/, assets/}` を用意する。Phase 1〜2 の成果物はこの2ファイルを指す。TOPIC は Claude Code で確定済みのため、Phase 0 は対象業務スコープの確認に充て、対話は案件の業務文脈・職種・成果指標に集中する。
+- **引数なし（骨子・事業設計）**: root の `CLAUDE.md`（事業哲学）・`OUTLINE.md`（骨子）を設計・更新する。
+- `.claude/rules/writing.md` は全案件共通のため、案件特化では触らない（Phase 3 は骨子設計時のみ）。Phase 4 の確認対象は、案件特化では上記2ファイル。
+
+> 📝 案件特化フローの詳細設計は、骨子（root `OUTLINE.md`）の確定とセットで詰める。現時点はモードと出力先の定義まで。
 
 ---
 
