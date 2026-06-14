@@ -1,7 +1,7 @@
 ---
 name: illustrate
 description: "Gemini（3 Pro Image）で教材の概念図を生成し、カリキュラムに挿入する。「画像を生成して」「概念図を作って」「イラストを挿入して」「illustrate Part 2」など、教材への画像追加に関する依頼で使用する。挿入ポイントの計画・プロンプト作成・生成・挿入までの一連のワークフローに対応する。"
-argument-hint: "<plan|generate|スコープ> [対象]"
+argument-hint: "<client> <plan|generate|スコープ> [対象]"
 ---
 
 # illustrate - 教材概念図の生成と挿入
@@ -10,6 +10,8 @@ Gemini（3 Pro Image）を使い、教材の Section に概念図を生成・挿
 Mermaid（正確な処理フロー）では表現しにくい「直感的なメンタルモデル」を可視化するのが役割。
 
 配置は各 Section の導入 🧠（[人格名]はこう考える）の直後。再実行しても既に画像がある Section はスキップする（冪等）ため、Part / Chapter を書き終えるたびに繰り返し実行できる。
+
+**対象案件**: 第1引数は案件スラッグ `<client>`。対象 Section（`OUTLINE.md`・`curriculums/`）と画像出力先は `clients/<client>/` 配下を指す（root `CLAUDE.md` の `<client>` 規約）。生成時は `--output clients/<client>/assets/diagrams/output/` を渡す（挿入時の相対パスは Section ファイルから見た階層で決まり、従来どおり変わらない）。
 
 ## 対象範囲と密度方針
 
@@ -93,7 +95,7 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
    node .claude/skills/illustrate/scripts/generate-image.js "<プロンプト>" --name <section番号>-<concept-slug>
    ```
    既定で Pro / 16:9 / 4K。スクリプトが出力先パスをログに表示する
-5. **目視確認**: Read ツールで画像を開き、(a) 意図した概念が伝わるか (b) 無関係な文字の混入・崩れ・要素過多がないか を確認する。問題があればプロンプトを調整して再生成する
+5. **目視確認**: Read ツールで画像を開き、(a) 意図した概念が伝わるか (b) 無関係な文字・タイトルの混入・崩れ・要素過多がないか (c) 立体感があり平板になっていないか (d) 背景に横スジ状のしみ・もや（4K アーティファクト）がないか を確認する。問題があればプロンプトを調整して再生成する。背景のしみが 4K で消えない場合は **`--resolution 2k` で生成し直す**（`references/style-guide.md` の注意書きを参照）
 6. **挿入**: 🧠 のブロッククオート直後・次の `---` の直前に画像タグを挿入する（下記「挿入位置とパス」）
 
 ## 命名規則
@@ -150,7 +152,7 @@ node .claude/skills/illustrate/scripts/generate-image.js "<プロンプト>" [�
 |-----------|-----------|------|
 | --name | (なし) | ファイル名（`<section番号>-<concept-slug>`）。指定するとプロンプトも自動保存 |
 | --aspect | 16:9 | アスペクト比 |
-| --resolution | 4k | 解像度 |
+| --resolution | 4k | 解像度。白背景に横スジ状のしみ・もやが出る場合は `2k` にすると解消する（4K アップスケーラ由来のアーティファクト回避） |
 | --output | assets/diagrams/output/ | 出力先パス |
 | --flash | (Pro) | Flash モデル使用（高速・低品質。既定は Pro） |
 
