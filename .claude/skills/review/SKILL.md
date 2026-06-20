@@ -4,7 +4,7 @@ description: |
   教材をレビューし、品質・用語・整合性等の問題点を報告する。自動修正は行わない。
   Part・Chapter・Section のいずれの単位でも対応する。
   「2-1 をレビューして」「Section 2-3-5 をチェックして」「Part 2 の整合性を確認して」「品質チェックして」など、教材のレビュー・品質検証の依頼で使用する。
-argument-hint: "<client> [スコープ]"
+argument-hint: "[スコープ]"
 ---
 
 # 教材のレビュー
@@ -12,8 +12,6 @@ argument-hint: "<client> [スコープ]"
 問題点は自動修正せず、すべて報告のみとする。
 
 **入力**: $ARGUMENTS
-
-**対象案件**: 第1引数は案件スラッグ `<client>`。本スキルが参照する `OUTLINE.md` / `curriculums/` は `clients/<client>/` 配下を指す（root `CLAUDE.md` の `<client>` 規約に従い、root の `CLAUDE.md`・`OUTLINE.md` は共通参照として併読）。
 
 ## スコープの解釈
 

@@ -31,18 +31,18 @@ export const theme = {
 
   // 面（白＋ごく薄い縦サイン）
   panel: "#FFFFFF",
-  panelGrad: "linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 100%)",
-  panelBorder: "#E5E8EC",
+  panelGrad: "linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%)",
+  panelBorder: "#E7E7E7",
 
   // 段差（ベベル）＝上端ハイライト + 内側ヘアライン + 下端の段
-  edge: "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 0 0 1px rgba(8,28,34,0.05), inset 0 -1.5px 0 rgba(8,28,34,0.05)",
-  elevSoft: "0 1px 2px rgba(8,28,34,0.04), 0 4px 12px rgba(8,28,34,0.05)",
-  elev: "0 1px 2px rgba(8,28,34,0.05), 0 12px 30px rgba(8,28,34,0.07)",
-  elevHigh: "0 2px 5px rgba(8,28,34,0.06), 0 28px 60px rgba(8,28,34,0.10)",
+  edge: "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 0 0 1px rgba(18,18,18,0.05), inset 0 -1.5px 0 rgba(18,18,18,0.05)",
+  elevSoft: "0 1px 2px rgba(18,18,18,0.04), 0 4px 12px rgba(18,18,18,0.05)",
+  elev: "0 1px 2px rgba(18,18,18,0.05), 0 12px 30px rgba(18,18,18,0.07)",
+  elevHigh: "0 2px 5px rgba(18,18,18,0.06), 0 28px 60px rgba(18,18,18,0.10)",
 
   // 無彩色の線（矢印・区切り）
-  line: "#C6CCD2",
-  lineStrong: "#98A0A8",
+  line: "#CFCFCF",
+  lineStrong: "#9C9C9C",
 
   // コード面（フラットな IDE 風ダーク。汎用＝ブランド非依存）
   codeBg: "#1E232E",
@@ -68,12 +68,12 @@ export const theme = {
     ws: "#D4D4D4",
   } as Record<string, string>,
   // 字幕（フロスト状の暗色バー。ほぼ無彩の濃色）
-  captionBg: "rgba(10,16,24,0.76)",
+  captionBg: "rgba(20,20,20,0.76)",
 
   // テキスト（クールな黒）
-  text: "#0E1620",
-  dim: "#54616A",
-  faint: "#929BA3",
+  text: "#161616",
+  dim: "#5C5C5C",
+  faint: "#9A9A9A",
 
   // アクセント（= ブランドの1色。グラデ・淡色はここで導く）
   accent: brand.accent,
@@ -82,8 +82,8 @@ export const theme = {
   accentText: brand.accentText,
   accentDeep: brand.accentDeep,
   accentSoft: rgba(brand.accent, 0.13),
-  // 2項対比の「もう片方」＝無彩色の濃いスレート
-  markNeutral: "#39414C",
+  // 2項対比の「もう片方」＝無彩色の濃いグレー（中立）
+  markNeutral: "#3C3C3C",
 
   // エラー（明面用／ダーク面内用）
   error: "#D6452F",

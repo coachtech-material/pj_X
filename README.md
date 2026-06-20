@@ -11,10 +11,9 @@
 | `CLAUDE.md` | 事業の哲学＋骨子＝設計思想（WHO / WHY / WHY US / WHAT / HOW / MAP） |
 | `OUTLINE.md` | 共通マスター教材のカリキュラム設計（目次） |
 | `curriculums/` | 共通マスター教材の本体 |
-| `library/` | 題材ライブラリ（職種×業界の題材・再利用断片）＝生成の INPUT |
-| `clients/<client>/` | 受講企業ごと（共通マスターの複製＋オーダーメイド。CONTEXT・OUTLINE・curriculums） |
-| `docs/` | 事業・骨子の設計検討資料（論点 `ISSUES.md`・旧学習項目の対応表 `TRIAGE.md` 等） |
+| `video/` | 解説動画の生成ワークスペース（Remotion） |
 | `.claude/` | 執筆ルール（`rules/writing.md`）・Skill 定義・設定 |
+| `archive/` | 過去の検討資料（旧 pjX 由来。現行と異なる想定を含むため参照しない） |
 
 ## 制作
 
@@ -22,6 +21,5 @@
 
 ## 運用
 
-- **このリポジトリは現状 public**。価格・競合などの内部検討資料（`docs/`）も公開状態にある。
-- ⚠️ 各受講企業の業務文脈（`clients/<client>/CONTEXT.md`）は **個人情報・社外秘を含みうる**。clients/ に実データを置く前に、**private 化または公開用との分離**を判断する（論点: `docs/ISSUES.md` No.6）。
+- **このリポジトリは現状 public**。価格・競合などの内部検討資料（`archive/`）も公開状態にある。
 - まとまった修正は Pull Request 経由で行う。

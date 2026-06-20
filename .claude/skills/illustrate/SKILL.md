@@ -1,7 +1,7 @@
 ---
 name: illustrate
 description: "Gemini（3 Pro Image）で教材の概念図を生成し、カリキュラムに挿入する。「画像を生成して」「概念図を作って」「イラストを挿入して」「illustrate Part 2」など、教材への画像追加に関する依頼で使用する。挿入ポイントの計画・プロンプト作成・生成・挿入までの一連のワークフローに対応する。"
-argument-hint: "<client> <plan|generate|スコープ> [対象]"
+argument-hint: "<plan|generate|スコープ> [対象]"
 ---
 
 # illustrate - 教材概念図の生成と挿入
@@ -9,9 +9,7 @@ argument-hint: "<client> <plan|generate|スコープ> [対象]"
 Gemini（3 Pro Image）を使い、教材の Section に概念図を生成・挿入する。
 Mermaid（正確な処理フロー）では表現しにくい「直感的なメンタルモデル」を可視化するのが役割。
 
-配置は各 Section の導入 🧠（[人格名]はこう考える）の直後。再実行しても既に画像がある Section はスキップする（冪等）ため、Part / Chapter を書き終えるたびに繰り返し実行できる。
-
-**対象案件**: 第1引数は案件スラッグ `<client>`。対象 Section（`OUTLINE.md`・`curriculums/`）と画像出力先は `clients/<client>/` 配下を指す（root `CLAUDE.md` の `<client>` 規約）。生成時は `--output clients/<client>/assets/diagrams/output/` を渡す（挿入時の相対パスは Section ファイルから見た階層で決まり、従来どおり変わらない）。
+配置は各 Section の導入 🧠（AI活用メンターの思考プロセス）の直後。再実行しても既に画像がある Section はスキップする（冪等）ため、Part / Chapter を書き終えるたびに繰り返し実行できる。
 
 ## 対象範囲と密度方針
 
@@ -120,7 +118,7 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
 
 [導入テキスト]
 
-### 🧠 [人格名]はこう考える
+### 🧠 AI活用メンターの思考プロセス
 
 > [語り]
 

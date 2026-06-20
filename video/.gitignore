@@ -6,5 +6,13 @@ dist
 # Ignore the output video from Git but not videos you import into src/.
 out
 
-# 生成物（TTS 音声・props・レンダ済み動画）
+# 生成物（TTS 音声・レンダ済み動画）
 public/audio/
+
+# 生成される props（音声長を反映。_smoke はフィクスチャとして追跡）。storyboard JSON はコミットする
+data/*.props.json
+!data/_smoke.props.json
+
+# 概念図の素材ステージング（assets/diagrams/output からコピー。.gitkeep のみ追跡）
+public/figures/*
+!public/figures/.gitkeep

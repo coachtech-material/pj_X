@@ -6,13 +6,3 @@
 # Python (github-pages スキルの同梱スクリプト由来)
 __pycache__/
 *.pyc
-
-# 案件の動画成果物（mp4 はコミットしない。配信は GitHub Release）
-clients/*/assets/videos/output/*.mp4
-
-# 動画エンジンの中間スクラッチ（正本は clients/<client>/assets/videos/storyboards/）
-video/data/*.storyboard.json
-video/data/*.props.json
-!video/data/_smoke.props.json
-video/public/figures/*
-!video/public/figures/.gitkeep

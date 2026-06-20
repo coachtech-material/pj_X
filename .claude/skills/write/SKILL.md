@@ -4,14 +4,12 @@ description: |
   教材の執筆ワークフロー。Part・Chapter・Section のいずれの単位でも対応する。
   新規執筆・更新・ブラッシュアップのいずれも対応。OUTLINE.md の設計に基づき、参考資料を参照しながら書き上げる。
   「2-1 を書いて」「Section 2-3-5 を更新して」「Part 1 をブラッシュアップして」「次の Section を書いて」など、教材の執筆に関する依頼で使用する。
-argument-hint: "<client> [スコープ] [追加指示(任意)]"
+argument-hint: "[スコープ] [追加指示(任意)]"
 ---
 
 # 教材の執筆ワークフロー
 
 **入力**: $ARGUMENTS
-
-**対象案件**: 第1引数は案件スラッグ `<client>`。本スキルが参照・生成する `CLAUDE.md` / `OUTLINE.md` / `curriculums/` は、root `CLAUDE.md` の `<client>` 規約に従い `clients/<client>/` 配下を指す。root の `CLAUDE.md`（事業哲学）・`OUTLINE.md`（骨子）・`library/`（題材）は共通参照として併読する。
 
 ## スコープの解釈
 

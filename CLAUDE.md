@@ -219,7 +219,7 @@ flowchart LR
 ### 参考資料
 
 - **技術面の正**: Anthropic 公式日本語ドキュメント（https://code.claude.com/docs/ja/ ）。機能・手順・ベストプラクティスは必ず公式で裏取りする。Part6 のアプリ開発で用いる技術（Next.js〔Cloudflare 配置は @opennextjs/cloudflare〕・Cloudflare Workers/D1/Workers AI・cc-sdd）は各公式ドキュメント／context7 で裏取りし、版変動が速いため手順・コマンドは執筆時に実機で確認して「○○時点」を明記する
-- **ビジネス・思考系の正**: 確立した書籍（論点思考・仮説思考＝内田和成、思考・論理・分析＝波頭亮、ピラミッド原則＝バーバラ・ミント 等）。あわせて `docs/` の学習項目体系を参照元に再利用する（本カリキュラムへの対応表は `docs/TRIAGE.md`）
+- **ビジネス・思考系の正**: 確立した書籍（論点思考・仮説思考＝内田和成、思考・論理・分析＝波頭亮、ピラミッド原則＝バーバラ・ミント 等）
 - **概念の参照**: プロンプト → コンテキスト → ハーネスの進化整理（ハーネスエンジニアリング関連の公開記事）、SDD（仕様駆動開発）の方法論（汎用は GitHub Spec Kit／Kiro、Part6 の実装は国産 cc-sdd＝gotalab/cc-sdd）
 
 ### Skills
@@ -243,15 +243,15 @@ project-root/                # 事業リポジトリ
 ├── CLAUDE.md                # 事業の哲学＋骨子＝設計思想（WHO/WHY/WHY US/WHAT/HOW/MAP）
 ├── OUTLINE.md               # 共通カリキュラムの設計（目次。全6 Part・65 Section）
 ├── curriculums/             # 共通カリキュラムの本体
-├── library/                 # 題材ライブラリ（職種×業界の題材・再利用 Skill/CLAUDE.md 断片・事例）
+├── video/                   # 解説動画の生成ワークスペース（Remotion）
 ├── .claude/
 │   ├── rules/writing.md     # 執筆ルール
 │   ├── skills/              # Skill 定義
 │   └── settings.json
-└── docs/                    # 設計・検討資料（事業・骨子の検討用）
+└── archive/                 # 過去の検討資料（旧 pjX 由来。現行と異なる想定を含むため参照しない）
 ```
 
-ルート直下に置く正のドキュメントは、`CLAUDE.md`（事業哲学＋骨子＝設計思想）と `OUTLINE.md`（共通カリキュラムの設計）。共通カリキュラムの本体は `curriculums/`、題材ライブラリは `library/`、検討資料は `docs/` に置く。
+ルート直下に置く正のドキュメントは、`CLAUDE.md`（事業哲学＋骨子＝設計思想）と `OUTLINE.md`（共通カリキュラムの設計）。共通カリキュラムの本体は `curriculums/`、解説動画の生成ワークスペースは `video/` に置く。`archive/` は過去の検討資料で、現行方針と異なる想定（オーダーメイド前提・旧 pjX 等）を含むため参照しない。
 
 **3層のパス**（Part > Chapter > Section）: `curriculums/part-XX_タイトル/chapter-XX_タイトル/X-X-X_タイトル.md`
 
