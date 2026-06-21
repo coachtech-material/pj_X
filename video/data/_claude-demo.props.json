@@ -1,0 +1,24 @@
+{
+  "sectionId": "demo",
+  "sectionLabel": "デモ / Claude Code セッション",
+  "title": "Claude Code セッション",
+  "scenes": [
+    {
+      "id": "claude-session",
+      "type": "terminal",
+      "heading": "Claude Code に任せる",
+      "windowTitle": "Claude Code",
+      "lines": [
+        { "user": "2-1-1.md の誤字を直して" },
+        { "claude": "2-1-1.md を読んで、誤字を直します。" },
+        { "tool": "Read(2-1-1.md)", "result": "139 行を読み込み" },
+        { "approve": "Edit(2-1-1.md) — 「こんにには」を「こんにちは」に修正", "options": ["はい", "いいえ、別の方法を伝える"] },
+        { "tool": "Edit(2-1-1.md)", "result": "1 箇所を修正" },
+        { "claude": "誤字を1箇所、直しました。" }
+      ],
+      "narration": "デモ用のシーンです。",
+      "audioFrames": 600,
+      "totalFrames": 620
+    }
+  ]
+}
