@@ -47,7 +47,7 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
 ### モデルと出力先
 
 - **Gemini モデル**: `gemini-3-pro-image`（GA 版）。既定 4K / 16:9。利用可能なモデルは `GET https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY` で確認できる
-- **OpenAI モデル**: `gpt-image-2`（既定・フラッグシップ）/ `gpt-image-1.5` / `gpt-image-1-mini`。サイズは `1024x1024` / `1536x1024`（横長・既定）/ `1024x1536` のみ（**4K・厳密な 16:9 は非対応**。横長は 3:2 が最大）。品質は `low` / `medium` / `high`（既定 high）。2026-06 時点
+- **OpenAI モデル**: `gpt-image-2`（既定・フラッグシップ）は **flexible サイズ対応**で、既定は **`1792x1008`（16:9）**。任意サイズも可（両辺 16 の倍数 / 長辺 ≤ 3840 / 長辺:短辺 ≤ 3:1 / 総画素 65.5万〜829万。4K の `3840x2160` も可）。**`gpt-image-1.5` / `gpt-image-1-mini` は固定3サイズのみ**（`1024x1024` / `1536x1024` / `1024x1536`）。品質は `low` / `medium` / `high`（既定 high）。2026-06 時点
 - **出力**: `assets/diagrams/output/<name>.jpg`（Gemini 既定）/ `.png`（OpenAI 既定）。プロンプト記録: `assets/diagrams/prompts/<name>.md`。どちらも初回実行時に自動作成される
 
 ## 使い方
@@ -106,7 +106,7 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
    # OpenAI（GPT Image）を使う場合
    node .claude/skills/illustrate/scripts/generate-image.js "<プロンプト>" --name <section番号>-<concept-slug> --provider openai
    ```
-   既定は Gemini（Pro / 16:9 / 4K）。`--provider openai`（`--openai` / `--codex` も可）で OpenAI（既定 gpt-image-2 / high / 1536x1024）。スクリプトが出力先パスをログに表示する
+   既定は Gemini（Pro / 16:9 / 4K）。`--provider openai`（`--openai` / `--codex` も可）で OpenAI（既定 gpt-image-2 / high / 16:9＝`1792x1008`）。スクリプトが出力先パスをログに表示する
 5. **目視確認**: Read ツールで画像を開き、(a) 意図した概念が伝わるか (b) 無関係な文字・タイトルの混入・崩れ・要素過多がないか (c) 立体感があり平板になっていないか (d) 背景に横スジ状のしみ・もや（4K アーティファクト）がないか を確認する。問題があればプロンプトを調整して再生成する。背景のしみが 4K で消えない場合は **`--resolution 2k` で生成し直す**（`references/style-guide.md` の注意書きを参照）
 6. **挿入**: 🧠 のブロッククオート直後・次の `---` の直前に画像タグを挿入する（下記「挿入位置とパス」）
 
@@ -150,8 +150,8 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
 ## コストと品質の注意
 
 - **Gemini** 既定は **4K / Pro**。概算で **約 0.2〜0.25 ドル / 枚**（2026-06 時点の目安）。概念 Section が多い教材を一括生成するとそれなりの額になるので、枚数を見積もってから実行する
-- **OpenAI** `gpt-image-2` は high / 1536x1024 で **約 0.2 ドル / 枚**、medium で約 0.05 ドル、`gpt-image-1-mini` は最安（約 0.01 ドル〜）。コストを抑えるなら品質を下げるか mini を使う（2026-06 時点）
-- **プロバイダの選び方**: 既定は **Gemini**（4K・16:9・立体的で密度が高い。本教材の既存図と同じスタイル）。**OpenAI（GPT Image）** は日本語ラベルが正確でフラット寄り、ただし **最大 1536×1024（3:2）で 4K・16:9 は不可**。**1 つの Part 内ではプロバイダを揃える**とスタイルの一貫性を保てる（`references/criteria.md`「Part 内でスタイル統一」と同じ理由）
+- **OpenAI** `gpt-image-2` は high / 16:9（`1792x1008`）で **約 0.2〜0.25 ドル / 枚**、medium で約 0.05〜0.06 ドル。コストを抑えるなら品質を下げる（2026-06 時点）
+- **プロバイダの選び方**: 既定は **Gemini**（4K・16:9・立体的で密度が高い。本教材の既存図と同じスタイル）。**OpenAI（GPT Image）** は日本語ラベルが正確でフラット寄り。`gpt-image-2` は 16:9（既定 `1792x1008`）や 4K も出せる（`gpt-image-1.5` / `mini` は固定3サイズのみ）。**1 つの Part 内ではプロバイダを揃える**とスタイルの一貫性を保てる（`references/criteria.md`「Part 内でスタイル統一」と同じ理由）
 - **スコープ単位（Part / Chapter）での実行を推奨**する。一気に全件より、確認しながら進めやすい
 - **各画像を必ず目視確認**する。Gemini は日本語ラベルを概ね正しく描くが、関係ない英単語などの文字アーティファクトが混じることがある。混入時はラベルを減らして再生成する
 - 図の主役は **Mermaid**（writing.md の図表方針に従う）。illustrate は 🧠 直後のメンタルモデル 1 枚に限定し、本文の Mermaid を再描画せず別角度（比喩・鳥瞰・Before/After）から描く
@@ -171,7 +171,7 @@ node .claude/skills/illustrate/scripts/generate-image.js "<プロンプト>" [�
 | --resolution | 4k | Gemini | 解像度。白背景に横スジ状のしみ・もやが出る場合は `2k` にすると解消する（4K アップスケーラ由来のアーティファクト回避） |
 | --flash | (Pro) | Gemini | Flash モデル使用（高速・低品質。既定は Pro） |
 | --model | gpt-image-2 | OpenAI | `gpt-image-2` / `gpt-image-1.5` / `gpt-image-1-mini` |
-| --size | 1536x1024 | OpenAI | `1024x1024` / `1536x1024` / `1024x1536`（4K・16:9 不可） |
+| --size | 1792x1008（gpt-image-2）/ 1536x1024（旧） | OpenAI | gpt-image-2 は flexible: 16:9 `1792x1008`・4K `3840x2160` 等（両辺16の倍数）。1.5/mini は `1024x1024`/`1536x1024`/`1024x1536` 固定 |
 | --quality | high | OpenAI | `low` / `medium` / `high` |
 | --format | png | OpenAI | `png` / `jpeg` / `webp` |
 
