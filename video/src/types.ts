@@ -64,6 +64,8 @@ export type TerminalScene = SceneBase & {
   windowTitle?: string;
   /** 入力行の先頭プロンプト（例 "you@Mac ~/projects %"）。省略時は既定 */
   prompt?: string;
+  /** 各ステップ（コマンド + その出力のまとまり）の開始タイミング（audioFrames に対する 0〜1 の配列）。ナレーションが各コマンドに触れる位置に合わせる。省略時は音声尺へ自動で均等配分 */
+  revealAt?: number[];
   lines: TermLine[];
 };
 

@@ -120,17 +120,41 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
   const prompt = scene.prompt ?? DEFAULT_PROMPT;
   const windowTitle = scene.windowTitle ?? "ターミナル";
 
-  // 各行の開始フレーム（入力はタイプ時間ぶん、出力・注釈は一定の猶予）
-  const starts: number[] = [];
-  let cursor = 8 + 18;
-  for (const l of scene.lines) {
-    starts.push(cursor);
-    if (kindOf(l) === "cmd") {
-      cursor += (l as { cmd: string }).cmd.length * CHAR_SPEED + LINE_GAP + 4;
+  // ステップ（コマンド + その出力のまとまり）に区切り、音声尺へ配分する。
+  // これで「ナレーションが触れたら、そのコマンドを打つ」という同期感が出る
+  // （全部を冒頭で一気に出してしまわない）。
+  const audioFrames = scene.audioFrames ?? scene.totalFrames ?? 300;
+  const steps: number[][] = [];
+  scene.lines.forEach((l, i) => {
+    if (kindOf(l) === "cmd" || steps.length === 0) {
+      steps.push([i]);
     } else {
-      cursor += OUT_REVEAL + LINE_GAP;
+      steps[steps.length - 1].push(i);
     }
-  }
+  });
+  const START_AT = 24; // ウィンドウ登場後
+  const LAST_AT = audioFrames * 0.8; // 最後のステップの開始（後ろに余白を残す）
+  const stepStart = (s: number) => {
+    if (scene.revealAt && scene.revealAt[s] != null) {
+      return audioFrames * scene.revealAt[s];
+    }
+    return steps.length <= 1
+      ? START_AT
+      : START_AT + ((LAST_AT - START_AT) * s) / (steps.length - 1);
+  };
+  const starts = new Array<number>(scene.lines.length).fill(0);
+  steps.forEach((idxs, s) => {
+    let c = stepStart(s);
+    for (const li of idxs) {
+      starts[li] = c;
+      const l = scene.lines[li];
+      if (kindOf(l) === "cmd") {
+        c += (l as { cmd: string }).cmd.length * CHAR_SPEED + 8; // 入力直後に出力
+      } else {
+        c += OUT_REVEAL + 4;
+      }
+    }
+  });
 
   return (
     <AbsoluteFill style={{ fontFamily: theme.fontJa }}>
