@@ -58,13 +58,14 @@
       "type": "terminal",
       "heading": "現在地で相対パスが変わる",
       "windowTitle": "ターミナル",
-      "prompt": "you@Mac %",
+      "prompt": "you@Mac ~/projects %",
       "lines": [
         { "cmd": "pwd", "note": "いまの現在地" },
         { "out": "/Users/you/projects" },
         { "cmd": "cd article", "note": "記事フォルダへ移動" },
-        { "cmd": "pwd", "note": "現在地が変わった" },
-        { "out": "/Users/you/projects/article" }
+        { "cmd": "pwd", "prompt": "you@Mac ~/projects/article %", "note": "現在地が変わった" },
+        { "out": "/Users/you/projects/article" },
+        { "cmd": "", "prompt": "you@Mac ~/projects/article %", "note": "article の中にいる" }
       ],
       "narration": "相対パスは、いまいる場所が基点でした。確かめてみましょう。pwd で現在地を出すと、projects にいます。cd で article に入り、もう一度 pwd。パスの末尾に article が足され、現在地が一つ深くなりました。基点が変わると、同じ相対パスでも指す先が変わります。"
     },

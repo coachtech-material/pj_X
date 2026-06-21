@@ -33,7 +33,7 @@ export const FigureScene = ({ scene }: { scene: FigureSceneType }) => {
       >
         <div
           style={{
-            width: 1360,
+            width: 1152,
             height: 648,
             borderRadius: 18,
             overflow: "hidden",
@@ -47,9 +47,8 @@ export const FigureScene = ({ scene }: { scene: FigureSceneType }) => {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "contain",
+              objectFit: "cover",
               transform: `scale(${scale})`,
-              scale: 0.973255,
             }}
           />
         </div>

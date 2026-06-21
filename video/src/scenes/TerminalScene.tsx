@@ -38,17 +38,25 @@ const CmdRow = ({
   start: number;
   frame: number;
 }) => {
-  const typed = Math.floor(
-    interpolate(
-      frame,
-      [start, start + cmd.length * CHAR_SPEED],
-      [0, cmd.length],
-      clampOpt,
-    ),
-  );
-  const typing = typed > 0 && typed < cmd.length;
-  const done = typed >= cmd.length;
-  const noteOp = note && done ? fade(frame, start + cmd.length * CHAR_SPEED + 4) : 0;
+  const hasCmd = cmd.length > 0;
+  const typed = hasCmd
+    ? Math.floor(
+        interpolate(
+          frame,
+          [start, start + cmd.length * CHAR_SPEED],
+          [0, cmd.length],
+          clampOpt,
+        ),
+      )
+    : 0;
+  const typing = hasCmd && typed > 0 && typed < cmd.length;
+  const done = !hasCmd || typed >= cmd.length;
+  const waiting = !hasCmd && frame >= start; // 空コマンド = 新しいプロンプトで入力待ち
+  const showCursor = typing || waiting;
+  const noteOp =
+    note && done
+      ? fade(frame, start + (hasCmd ? cmd.length * CHAR_SPEED : 0) + 4)
+      : 0;
   return (
     <div
       style={{
@@ -65,7 +73,7 @@ const CmdRow = ({
       <div>
         <span style={{ color: theme.codeGutter }}>{prompt} </span>
         <span style={{ color: theme.codeText }}>{cmd.slice(0, typed)}</span>
-        {typing ? (
+        {showCursor ? (
           <span style={{ color: theme.accent, opacity: frame % 16 < 8 ? 1 : 0 }}>
             ▍
           </span>
@@ -196,11 +204,11 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
               {scene.lines.map((l, i) => {
                 const k = kindOf(l);
                 if (k === "cmd") {
-                  const cl = l as { cmd: string; note?: string };
+                  const cl = l as { cmd: string; note?: string; prompt?: string };
                   return (
                     <CmdRow
                       key={i}
-                      prompt={prompt}
+                      prompt={cl.prompt ?? prompt}
                       cmd={cl.cmd}
                       note={cl.note}
                       start={starts[i]}

@@ -54,7 +54,7 @@ export type FigureScene = SceneBase & {
 
 /** ターミナル1行: 入力（cmd）/ 出力（out）/ 注釈（comment）のいずれか */
 export type TermLine =
-  | { cmd: string; note?: string }
+  | { cmd: string; note?: string; prompt?: string }
   | { out: string }
   | { comment: string };
 
