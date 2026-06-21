@@ -1,0 +1,467 @@
+/* ============================================================
+   estra AI研修カリキュラム — テーマ
+   白 / アイボリー × 黒 × 金（ゴールド）。上品・シック・エレガント。
+   配色は video/src/brand.ts（白黒金ブランド）と一致させている。
+   色を変えるときは下の :root のブランドトークンだけを差し替える。
+   ============================================================ */
+
+:root {
+  /* --- estra ブランドトークン（video/src/brand.ts と一致）--- */
+  --estra-ink:        #161616; /* クールな黒（本文・見出し） */
+  --estra-ink-dim:    #5C5C5C; /* 弱い黒 */
+  --estra-ink-faint:  #9A9A9A;
+  --estra-ivory:      #FCFAF4; /* 地＝ごく淡いアイボリー（白に温かみ） */
+  --estra-ivory-deep: #FBF8F0; /* やや濃いアイボリー（面・カード・引用） */
+  --estra-gold:        #B8923E; /* 主アクセント＝深みのある金 */
+  --estra-gold-bright: #E0C277; /* シャンパンゴールド（グラデ端・ダーク地のリンク） */
+  --estra-gold-text:   #8A6A2C; /* 白/アイボリー地で読みやすい金（本文リンク） */
+  --estra-gold-deep:   #6E5320; /* さらに濃い金（インラインコード等） */
+  --estra-gold-border: #ECE3CE; /* 金を帯びた淡いボーダー */
+  --estra-gold-grad: linear-gradient(90deg, #B8923E 0%, #E0C277 100%);
+
+  /* 日本語＝Hiragino 優先のシステムゴシック（Noto Sans JP を Web フォント fallback に） */
+  --md-text-font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", YuGothic, "Noto Sans JP";
+  --md-code-font: "JetBrains Mono", "SF Mono", "Menlo", "Consolas";
+}
+
+/* ---------- ライトモード（白 / アイボリー × 黒 × 金）---------- */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #FFFFFF;          /* ヘッダー＝白 */
+  --md-primary-fg-color--light: #FFFFFF;
+  --md-primary-fg-color--dark:  var(--estra-ivory-deep);
+  --md-primary-bg-color:        var(--estra-ink); /* ヘッダー上の文字・アイコン＝黒 */
+  --md-primary-bg-color--light: var(--estra-ink-dim);
+
+  --md-accent-fg-color:              var(--estra-gold); /* ホバー・選択・アクティブ */
+  --md-accent-fg-color--transparent: rgba(184, 146, 62, 0.10);
+
+  --md-default-bg-color: var(--estra-ivory);      /* 地＝アイボリー */
+  --md-default-fg-color: var(--estra-ink);
+
+  --md-typeset-a-color:  var(--estra-gold-text);  /* 本文リンク＝読みやすい金 */
+  --md-footer-bg-color:        var(--estra-ink);
+  --md-footer-bg-color--dark:  #0F0F0F;
+}
+
+/* ---------- ダークモード（黒 × アイボリー × 明るい金）---------- */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #0F0F0F;          /* ヘッダー＝黒 */
+  --md-primary-fg-color--light: #1A1A1A;
+  --md-primary-fg-color--dark:  #000000;
+  --md-primary-bg-color:        var(--estra-ivory-deep); /* ヘッダー文字＝アイボリー */
+  --md-primary-bg-color--light: #C9C2B4;
+
+  --md-accent-fg-color:              var(--estra-gold-bright);
+  --md-accent-fg-color--transparent: rgba(224, 194, 119, 0.12);
+
+  --md-default-bg-color:        #141414;          /* 地＝ほぼ黒（中立） */
+  --md-default-fg-color:        rgba(255, 255, 255, 0.87);
+  --md-default-fg-color--light: rgba(255, 255, 255, 0.66);
+  --md-code-bg-color:           #1E232E;          /* video の IDE 風コード面 */
+  --md-code-fg-color:           #D4D4D4;
+
+  --md-typeset-a-color: var(--estra-gold-bright);
+  --md-footer-bg-color:        #0F0F0F;
+  --md-footer-bg-color--dark:  #000000;
+}
+
+/* 日本語の字間を詰めて上品に（プロポーショナル仮名） */
+body,
+.md-typeset {
+  font-feature-settings: "palt" 1;
+}
+
+/* ============================================================
+   ヘッダー — 余白のある明面に、金のヘアラインを一本
+   ============================================================ */
+.md-header {
+  color: var(--md-primary-bg-color);
+  box-shadow: 0 1px 2px rgba(18, 18, 18, 0.04), 0 4px 12px rgba(18, 18, 18, 0.05);
+  border-bottom: 1px solid var(--estra-gold-border);
+}
+
+/* ヘッダー下端の金グラデ（細い一本線でブランドを効かせる） */
+.md-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--estra-gold-grad);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  border-bottom-color: rgba(184, 146, 62, 0.30);
+}
+
+.md-header__title {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* タブ（上部ナビ）も明面にそろえる */
+.md-tabs {
+  color: var(--md-primary-bg-color);
+}
+
+.md-tabs__link {
+  opacity: 0.72;
+  transition: opacity 0.15s;
+}
+
+.md-tabs__link:hover,
+.md-tabs__link--active {
+  opacity: 1;
+  color: var(--estra-gold-text);
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link:hover,
+[data-md-color-scheme="slate"] .md-tabs__link--active {
+  color: var(--estra-gold-bright);
+}
+
+/* ============================================================
+   見出し — 黒。H1 に金のアクセント、H2 に金のヘアライン
+   ============================================================ */
+.md-typeset h1 {
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+  letter-spacing: 0.01em;
+}
+
+.md-typeset h1::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  margin-top: 0.6rem;
+  background: var(--estra-gold-grad);
+  border-radius: 2px;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+  border-bottom: 1px solid var(--estra-gold-border);
+  padding-bottom: 0.4rem;
+  margin-top: 2.6rem;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  border-bottom-color: rgba(184, 146, 62, 0.28);
+}
+
+/* ============================================================
+   リンク — 金。ホバーで下線が灯る
+   ============================================================ */
+.md-typeset a {
+  color: var(--md-typeset-a-color);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.md-typeset a:hover {
+  color: var(--estra-gold);
+  border-bottom-color: var(--estra-gold);
+}
+
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+  color: var(--estra-gold-bright);
+  border-bottom-color: var(--estra-gold-bright);
+}
+
+::selection {
+  background: rgba(184, 146, 62, 0.22);
+}
+
+/* ============================================================
+   トップページのヒーロー
+   ============================================================ */
+.hero {
+  text-align: center;
+  padding: 2.6rem 0 1rem;
+}
+
+.hero p:first-of-type {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--md-default-fg-color);
+}
+
+.hero p:first-of-type::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 3px;
+  margin: 0.9rem auto 0;
+  background: var(--estra-gold-grad);
+  border-radius: 2px;
+}
+
+.hero p {
+  color: var(--md-default-fg-color--light, var(--estra-ink-dim));
+}
+
+/* ============================================================
+   テーブル — 金で縁取り、見出し行はアイボリー
+   ============================================================ */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--estra-gold-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--estra-ivory-deep);
+  color: var(--md-default-fg-color);
+  font-weight: 700;
+  border-bottom: 2px solid var(--estra-gold-border);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background: #1c1c1c;
+  border-bottom-color: rgba(184, 146, 62, 0.30);
+}
+
+/* ============================================================
+   引用（🧠 / ⚠️ / よくあるエラー など）— 金の縦線 + アイボリー地
+   ============================================================ */
+.md-typeset blockquote {
+  border-left: 3px solid var(--estra-gold);
+  background: var(--estra-ivory-deep);
+  border-radius: 0 5px 5px 0;
+  color: var(--md-default-fg-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset blockquote {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--md-default-fg-color);
+}
+
+/* ============================================================
+   Admonition（!!! note 等）/ 折りたたみ — 既定の青等をやめ金/アイボリーへ
+   ============================================================ */
+.md-typeset .admonition,
+.md-typeset details {
+  border: 1px solid var(--estra-gold-border);
+  border-left: 0.2rem solid var(--estra-gold);
+  border-radius: 5px;
+}
+
+.md-typeset .admonition.note,
+.md-typeset .admonition.info,
+.md-typeset .admonition.abstract,
+.md-typeset .admonition.tip,
+.md-typeset .admonition.example,
+.md-typeset .admonition.quote {
+  border-left-color: var(--estra-gold);
+}
+
+.md-typeset .admonition > .admonition-title,
+.md-typeset .admonition > summary,
+.md-typeset details > summary,
+.md-typeset .note > .admonition-title,
+.md-typeset .info > .admonition-title,
+.md-typeset .abstract > .admonition-title,
+.md-typeset .tip > .admonition-title,
+.md-typeset .example > .admonition-title,
+.md-typeset .quote > .admonition-title {
+  background-color: var(--estra-ivory-deep);
+  color: var(--estra-gold-deep);
+  font-weight: 700;
+}
+
+.md-typeset .admonition > .admonition-title::before,
+.md-typeset .admonition > summary::before,
+.md-typeset .note > .admonition-title::before,
+.md-typeset .info > .admonition-title::before,
+.md-typeset .abstract > .admonition-title::before,
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .example > .admonition-title::before,
+.md-typeset .quote > .admonition-title::before {
+  background-color: var(--estra-gold);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .admonition > summary,
+[data-md-color-scheme="slate"] .md-typeset details > summary {
+  background-color: rgba(184, 146, 62, 0.12);
+  color: var(--estra-gold-bright);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details {
+  border-color: rgba(184, 146, 62, 0.28);
+  border-left-color: var(--estra-gold-bright);
+}
+
+/* ============================================================
+   コード — インラインはブロンズ金、面はアイボリー縁取り
+   ============================================================ */
+.md-typeset code {
+  border-radius: 4px;
+}
+
+[data-md-color-scheme="default"] .md-typeset :not(pre) > code {
+  background: var(--estra-ivory-deep);
+  color: var(--estra-gold-deep);
+  border: 1px solid var(--estra-gold-border);
+  padding: 0.05em 0.4em;
+}
+
+[data-md-color-scheme="default"] .md-typeset .highlight > pre,
+[data-md-color-scheme="default"] .md-typeset pre > code {
+  border: 1px solid var(--estra-gold-border);
+  border-radius: 6px;
+}
+
+/* コピーボタン等のフォーカス色 */
+.md-clipboard:hover {
+  color: var(--estra-gold);
+}
+
+/* ============================================================
+   サイドナビ — アクティブは金
+   ============================================================ */
+.md-nav__link--active,
+.md-nav__item .md-nav__link--active {
+  color: var(--estra-gold-text);
+  font-weight: 700;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: var(--estra-gold-bright);
+}
+
+.md-nav__link:focus,
+.md-nav__link:hover {
+  color: var(--estra-gold);
+}
+
+/* 目次（右）アクティブ */
+.md-nav--secondary .md-nav__link--active {
+  color: var(--estra-gold-text);
+}
+
+/* ============================================================
+   Mermaid 図 — 金の線・矢印、アイボリーのノード（writing.md は図を Mermaid 指定）
+   ============================================================ */
+.md-typeset .mermaid .edgePath .path,
+.md-typeset .mermaid .flowchart-link,
+.md-typeset .mermaid .relation {
+  stroke: var(--estra-gold) !important;
+}
+
+.md-typeset .mermaid marker path,
+.md-typeset .mermaid defs marker path,
+.md-typeset .mermaid .arrowheadPath {
+  fill: var(--estra-gold) !important;
+  stroke: var(--estra-gold) !important;
+}
+
+.md-typeset .mermaid .node > rect,
+.md-typeset .mermaid .node > circle,
+.md-typeset .mermaid .node > ellipse,
+.md-typeset .mermaid .node > polygon,
+.md-typeset .mermaid .node > path {
+  stroke: var(--estra-gold) !important;
+  stroke-width: 1.3px !important;
+  fill: var(--estra-ivory-deep) !important;
+}
+
+.md-typeset .mermaid .cluster rect {
+  stroke: var(--estra-gold-border) !important;
+  fill: var(--estra-ivory) !important;
+}
+
+.md-typeset .mermaid .label,
+.md-typeset .mermaid .nodeLabel,
+.md-typeset .mermaid .edgeLabel,
+.md-typeset .mermaid text {
+  fill: var(--estra-ink) !important;
+  color: var(--estra-ink) !important;
+}
+
+.md-typeset .mermaid .edgeLabel {
+  background-color: var(--estra-ivory) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .mermaid .node > rect,
+[data-md-color-scheme="slate"] .md-typeset .mermaid .node > circle,
+[data-md-color-scheme="slate"] .md-typeset .mermaid .node > ellipse,
+[data-md-color-scheme="slate"] .md-typeset .mermaid .node > polygon,
+[data-md-color-scheme="slate"] .md-typeset .mermaid .node > path {
+  fill: #1E232E !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .mermaid .label,
+[data-md-color-scheme="slate"] .md-typeset .mermaid .nodeLabel,
+[data-md-color-scheme="slate"] .md-typeset .mermaid .edgeLabel,
+[data-md-color-scheme="slate"] .md-typeset .mermaid text {
+  fill: rgba(255, 255, 255, 0.87) !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .mermaid .edgeLabel {
+  background-color: #141414 !important;
+}
+
+/* ============================================================
+   フッター — 黒地に、前/次ナビは金でホバー
+   ============================================================ */
+.md-footer__link {
+  padding: 1rem 1.5rem;
+  border-radius: 0.4rem;
+  transition: background-color 0.2s;
+}
+
+.md-footer__link:hover {
+  background-color: rgba(184, 146, 62, 0.15);
+}
+
+.md-footer__title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* "Made with Material for MkDocs" を非表示 */
+.md-copyright {
+  display: none;
+}
+
+/* ============================================================
+   ロゴ無し運用（brand.logo = ""）。SVG を隠してタイトル全体をリンク領域に
+   ============================================================ */
+.md-header__button.md-logo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  z-index: 1;
+  opacity: 0;
+}
+
+.md-header__button.md-logo svg {
+  display: none;
+}
+
+.md-header__inner {
+  position: relative;
+}
+
+.md-header__ellipsis {
+  cursor: pointer;
+}

@@ -6,3 +6,8 @@
 # Python (github-pages スキルの同梱スクリプト由来)
 __pycache__/
 *.pyc
+
+# MkDocs build output（github-pages スキルの生成物）
+site/
+docs/part-*/
+docs/assets/
