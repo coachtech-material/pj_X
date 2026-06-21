@@ -11,7 +11,7 @@
 ```text
 curriculums/.../<sectionId>_*.md（Section 本文）
   → data/<sectionId>.storyboard.json   … シーン分割 + ナレーション台本（Claude が執筆）
-  → scripts/tts-gemini.mjs             … TTS 音声生成 + 実測尺の埋め込み
+  → scripts/tts-gcloud.mjs             … TTS 音声生成（既定: Chirp 3 HD・声が一貫）+ 実測尺の埋め込み
   → data/<sectionId>.props.json        … レンダリング入力（音声長を反映済み）
   → npx remotion render                … mp4 出力
 ```
@@ -20,7 +20,7 @@ curriculums/.../<sectionId>_*.md（Section 本文）
 
 ```bash
 npm install                                    # 初回のみ
-node scripts/tts-gemini.mjs <sectionId>        # 音声生成（要 GEMINI_API_KEY）
+node scripts/tts-gcloud.mjs <sectionId>        # 音声生成（既定: Chirp 3 HD・要 GOOGLE_TTS_API_KEY）
 npx remotion studio --port 3333                # プレビュー
 npx remotion render src/index.ts SectionVideo out/<sectionId>.mp4 \
   --props=data/<sectionId>.props.json          # レンダリング

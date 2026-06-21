@@ -1,12 +1,12 @@
 ---
 name: illustrate
-description: "Gemini（3 Pro Image）で教材の概念図を生成し、カリキュラムに挿入する。「画像を生成して」「概念図を作って」「イラストを挿入して」「illustrate Part 2」など、教材への画像追加に関する依頼で使用する。挿入ポイントの計画・プロンプト作成・生成・挿入までの一連のワークフローに対応する。"
+description: "Gemini（3 Pro Image）または OpenAI（GPT Image）で教材の概念図を生成し、カリキュラムに挿入する。「画像を生成して」「概念図を作って」「イラストを挿入して」「illustrate Part 2」など、教材への画像追加に関する依頼で使用する。挿入ポイントの計画・プロンプト作成・生成・挿入までの一連のワークフローに対応する。"
 argument-hint: "<plan|generate|スコープ> [対象]"
 ---
 
 # illustrate - 教材概念図の生成と挿入
 
-Gemini（3 Pro Image）を使い、教材の Section に概念図を生成・挿入する。
+Gemini（3 Pro Image、既定）または OpenAI（GPT Image）を使い、教材の Section に概念図を生成・挿入する。
 Mermaid（正確な処理フロー）では表現しにくい「直感的なメンタルモデル」を可視化するのが役割。
 
 配置は各 Section の導入 🧠（AI活用メンターの思考プロセス）の直後。再実行しても既に画像がある Section はスキップする（冪等）ため、Part / Chapter を書き終えるたびに繰り返し実行できる。
@@ -23,22 +23,32 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
 
 ### API キー
 
-`GEMINI_API_KEY` 環境変数が必要。確認:
+プロバイダごとに API キーが必要。**既定は Gemini**。OpenAI（GPT Image）を使う場合のみ `OPENAI_API_KEY` も設定する。確認:
 
 ```bash
-[ -n "$GEMINI_API_KEY" ] && echo "OK" || echo "未設定"
+[ -n "$GEMINI_API_KEY" ] && echo "Gemini OK" || echo "Gemini 未設定"
+[ -n "$OPENAI_API_KEY" ] && echo "OpenAI OK" || echo "OpenAI 未設定"
 ```
 
-未設定の場合の手順:
+**Gemini**（`GEMINI_API_KEY`）未設定の場合:
 
 1. [Google AI Studio](https://aistudio.google.com/apikey) で API キーを作成
 2. `~/.zshrc`（または `~/.bashrc`）に追加: `export GEMINI_API_KEY="取得したキー"`
 3. `source ~/.zshrc` で反映
 
+**OpenAI**（`OPENAI_API_KEY`）未設定の場合（Codex と同じ OpenAI アカウントで使える。Codex 自体に画像生成機能はなく、画像生成は OpenAI の GPT Image モデルが担う）:
+
+1. [OpenAI Platform](https://platform.openai.com/) にサインアップ／ログイン
+2. [Billing 設定](https://platform.openai.com/settings/organization/billing/overview) で支払い方法を登録しクレジットを購入する（画像生成は従量課金。残高がないと `401 / insufficient_quota` になる）
+3. [API keys](https://platform.openai.com/api-keys) で「Create new secret key」を押し、表示されたキー（`sk-...`）をコピーする（**作成時しか全体表示されない**ので必ず控える）
+4. `~/.zshrc` に追加: `export OPENAI_API_KEY="取得したキー"`
+5. `source ~/.zshrc` で反映
+
 ### モデルと出力先
 
-- **モデル**: `gemini-3-pro-image`（GA 版）。既定 4K / 16:9。利用可能なモデルは `GET https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY` で確認できる
-- **出力**: `assets/diagrams/output/<name>.jpg`（または `.png`）。プロンプト記録: `assets/diagrams/prompts/<name>.md`。どちらも初回実行時に自動作成される
+- **Gemini モデル**: `gemini-3-pro-image`（GA 版）。既定 4K / 16:9。利用可能なモデルは `GET https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY` で確認できる
+- **OpenAI モデル**: `gpt-image-2`（既定・フラッグシップ）/ `gpt-image-1.5` / `gpt-image-1-mini`。サイズは `1024x1024` / `1536x1024`（横長・既定）/ `1024x1536` のみ（**4K・厳密な 16:9 は非対応**。横長は 3:2 が最大）。品質は `low` / `medium` / `high`（既定 high）。2026-06 時点
+- **出力**: `assets/diagrams/output/<name>.jpg`（Gemini 既定）/ `.png`（OpenAI 既定）。プロンプト記録: `assets/diagrams/prompts/<name>.md`。どちらも初回実行時に自動作成される
 
 ## 使い方
 
@@ -90,9 +100,13 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
 3. **プロンプトを構成する**: `references/style-guide.md` のテンプレート（内容・スタイル）に従い、構図を具体的に指定する。ラベルは読みやすく最小限に
 4. **生成**:
    ```bash
+   # 既定（Gemini / Pro / 16:9 / 4K）
    node .claude/skills/illustrate/scripts/generate-image.js "<プロンプト>" --name <section番号>-<concept-slug>
+
+   # OpenAI（GPT Image）を使う場合
+   node .claude/skills/illustrate/scripts/generate-image.js "<プロンプト>" --name <section番号>-<concept-slug> --provider openai
    ```
-   既定で Pro / 16:9 / 4K。スクリプトが出力先パスをログに表示する
+   既定は Gemini（Pro / 16:9 / 4K）。`--provider openai`（`--openai` / `--codex` も可）で OpenAI（既定 gpt-image-2 / high / 1536x1024）。スクリプトが出力先パスをログに表示する
 5. **目視確認**: Read ツールで画像を開き、(a) 意図した概念が伝わるか (b) 無関係な文字・タイトルの混入・崩れ・要素過多がないか (c) 立体感があり平板になっていないか (d) 背景に横スジ状のしみ・もや（4K アーティファクト）がないか を確認する。問題があればプロンプトを調整して再生成する。背景のしみが 4K で消えない場合は **`--resolution 2k` で生成し直す**（`references/style-guide.md` の注意書きを参照）
 6. **挿入**: 🧠 のブロッククオート直後・次の `---` の直前に画像タグを挿入する（下記「挿入位置とパス」）
 
@@ -135,7 +149,9 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
 
 ## コストと品質の注意
 
-- 既定は **4K / Pro**。概算で **約 0.2〜0.25 ドル / 枚**（2026-06 時点の目安）。概念 Section が多い教材を一括生成するとそれなりの額になるので、枚数を見積もってから実行する
+- **Gemini** 既定は **4K / Pro**。概算で **約 0.2〜0.25 ドル / 枚**（2026-06 時点の目安）。概念 Section が多い教材を一括生成するとそれなりの額になるので、枚数を見積もってから実行する
+- **OpenAI** `gpt-image-2` は high / 1536x1024 で **約 0.2 ドル / 枚**、medium で約 0.05 ドル、`gpt-image-1-mini` は最安（約 0.01 ドル〜）。コストを抑えるなら品質を下げるか mini を使う（2026-06 時点）
+- **プロバイダの選び方**: 既定は **Gemini**（4K・16:9・立体的で密度が高い。本教材の既存図と同じスタイル）。**OpenAI（GPT Image）** は日本語ラベルが正確でフラット寄り、ただし **最大 1536×1024（3:2）で 4K・16:9 は不可**。**1 つの Part 内ではプロバイダを揃える**とスタイルの一貫性を保てる（`references/criteria.md`「Part 内でスタイル統一」と同じ理由）
 - **スコープ単位（Part / Chapter）での実行を推奨**する。一気に全件より、確認しながら進めやすい
 - **各画像を必ず目視確認**する。Gemini は日本語ラベルを概ね正しく描くが、関係ない英単語などの文字アーティファクトが混じることがある。混入時はラベルを減らして再生成する
 - 図の主役は **Mermaid**（writing.md の図表方針に従う）。illustrate は 🧠 直後のメンタルモデル 1 枚に限定し、本文の Mermaid を再描画せず別角度（比喩・鳥瞰・Before/After）から描く
@@ -146,13 +162,18 @@ Mermaid（正確な処理フロー）では表現しにくい「直感的なメ�
 node .claude/skills/illustrate/scripts/generate-image.js "<プロンプト>" [オプション]
 ```
 
-| オプション | デフォルト | 説明 |
-|-----------|-----------|------|
-| --name | (なし) | ファイル名（`<section番号>-<concept-slug>`）。指定するとプロンプトも自動保存 |
-| --aspect | 16:9 | アスペクト比 |
-| --resolution | 4k | 解像度。白背景に横スジ状のしみ・もやが出る場合は `2k` にすると解消する（4K アップスケーラ由来のアーティファクト回避） |
-| --output | assets/diagrams/output/ | 出力先パス |
-| --flash | (Pro) | Flash モデル使用（高速・低品質。既定は Pro） |
+| オプション | デフォルト | 対象 | 説明 |
+|-----------|-----------|------|------|
+| --provider | gemini | 共通 | `gemini` / `openai`（`--openai` / `--codex` でも可）。プロバイダ選択 |
+| --name | (なし) | 共通 | ファイル名（`<section番号>-<concept-slug>`）。指定するとプロンプトも自動保存 |
+| --output | assets/diagrams/output/ | 共通 | 出力先パス |
+| --aspect | 16:9 | Gemini | アスペクト比 |
+| --resolution | 4k | Gemini | 解像度。白背景に横スジ状のしみ・もやが出る場合は `2k` にすると解消する（4K アップスケーラ由来のアーティファクト回避） |
+| --flash | (Pro) | Gemini | Flash モデル使用（高速・低品質。既定は Pro） |
+| --model | gpt-image-2 | OpenAI | `gpt-image-2` / `gpt-image-1.5` / `gpt-image-1-mini` |
+| --size | 1536x1024 | OpenAI | `1024x1024` / `1536x1024` / `1024x1536`（4K・16:9 不可） |
+| --quality | high | OpenAI | `low` / `medium` / `high` |
+| --format | png | OpenAI | `png` / `jpeg` / `webp` |
 
 `--force` は scope の再生成可否を制御するスキル側の指定で、スクリプトのフラグではない。
 

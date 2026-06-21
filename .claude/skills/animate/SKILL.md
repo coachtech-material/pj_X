@@ -19,7 +19,7 @@ Remotion（React ベースの動画フレームワーク）で、各 Section の
 
 ## 前提条件
 
-1. **GEMINI_API_KEY**（ナレーション TTS 用）: `[ -n "$GEMINI_API_KEY" ] && echo OK`
+1. **GOOGLE_TTS_API_KEY**（ナレーション TTS 用。既定エンジン＝Google Chirp 3 HD）: `[ -n "$GOOGLE_TTS_API_KEY" ] && echo OK`（代替で Gemini を使うなら `GEMINI_API_KEY`、OpenAI なら `OPENAI_API_KEY`）
 2. **video/ ワークスペース**: 初回のみ `cd video && npm install`
 3. **Remotion 公式 Skill**: `.claude/skills/remotion-best-practices` が無ければ、ユーザーに `npx skills add remotion-dev/skills` の実行を依頼する（外部 Skill の導入はユーザー操作で行う）
 4. **プロジェクト調整（カスタマイズ）**: 配色・フォント・ロゴ・声・読みは **`references/customization.md`** の手順で差し替える。要点は4つだけ:
@@ -69,7 +69,7 @@ Remotion（React ベースの動画フレームワーク）で、各 Section の
 1. **Section ファイルを全文読む**
 2. **ストーリーボードを書く**: `video/data/<sectionId>.storyboard.json`。シーン構成・台本の書き方は `references/storyboard.md`、シーン型の選び方と尺は `references/criteria.md` に従う。読み上げは **narration から自動生成**される（`pronunciation.json` で英語・記号だけカタカナ化、漢字は残す）。通常 `reading` は書かず、聞いて違和感がある箇所だけ個別に上書きする（詳細は `storyboard.md`）。新しい英語用語は `pronunciation.json` に追加する
 3. **既存概念図を素材化**: 🧠 直後の概念図（/illustrate の出力）を使う場合は `cp assets/diagrams/output/<name>.jpg video/public/figures/`
-4. **TTS**: `cd video && node scripts/tts-gemini.mjs <sectionId>`（生成済み wav は再利用される）
+4. **TTS**: `cd video && node scripts/tts-gcloud.mjs <sectionId>`（Google Chirp 3 HD。生成済み wav は再利用される）。**Chirp を既定にするのは、呼び出しをまたいでも声が一貫し、シーン間・動画間で声がぶれないため**（生成型の Gemini preview は同じ voice でも毎回読み方が揺れる）。代替は `tts-gemini.mjs`（生成型・トーン指示可だが一貫しない）／ `tts-openai.mjs`（生成型・`instructions` でトーン指示可・比較的一貫）。いずれも同一 CLI 契約・`--force` で再生成
 5. **レンダリング**: `npx remotion render src/index.ts SectionVideo out/<sectionId>.mp4 --props=data/<sectionId>.props.json`（1 本あたり約 6 分）
 6. **QA**: 各シーンの中間フレームを `npx remotion still src/index.ts SectionVideo out/qa-<frame>.png --frame=<N> --props=... --scale=0.5` で 3〜4 枚書き出し、Read で目視確認（文字切れ・レイアウト崩れ・字幕）。音声も冒頭シーンを試聴確認する
 7. **配信と挿入**:
@@ -102,8 +102,8 @@ Remotion（React ベースの動画フレームワーク）で、各 Section の
 
 ## コストと品質の注意
 
-- TTS 約 $0.07 / 本（gemini-2.5-flash-preview-tts）、レンダ約 6 分 / 本（Apple Silicon・concurrency 5）。**Chapter / Part 単位での実行を推奨**
-- 音声は **Preview モデル**のため、モデル ID 変更時は `TTS_MODEL`（または `data/voice.json` の `model`）で切替える。エンジン自体の差し替えは `scripts/tts-voicevox.mjs`（同一 CLI 契約）が前例
+- レンダ約 6 分 / 本（Apple Silicon・concurrency 5）、TTS は数十秒 / 本。**Chapter / Part 単位での実行を推奨**
+- **声の一貫性（重要）**: 既定の Chirp 3 HD（production 型）はシーンごとに別呼び出ししても同じ声・同じ調子で揃う。Gemini preview（生成型）は同じ `voice` でも生成のたびに抑揚・話速・声の張りが揺れ、シーン境界で声が変わって聞こえるため既定にしない。声を変えたいときは `data/voice.json` の `gcloudVoice`（Chirp の別ボイス）を変えるか、エンジン自体を差し替える（同一 CLI 契約: `tts-gemini.mjs` / `tts-openai.mjs` / `tts-voicevox.mjs`）
 - 動画 mp4 は **コミットしない**（`.gitignore` 済み）。コミットするのは storyboard JSON・コード・教材 md の埋め込みタグのみ
 
 ## リファレンス

@@ -1,6 +1,6 @@
-# 2-1-1-current-directory
+# 2-1-1-current-directory-openai
 
-**モデル**: pro | **アスペクト比**: 16:9 | **解像度**: 2k
+**プロバイダ**: openai | **モデル**: gpt-image-2 | **サイズ**: 1536x1024 | **品質**: high
 
 ## プロンプト本文
 
