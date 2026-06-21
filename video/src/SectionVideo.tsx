@@ -18,6 +18,7 @@ import { FlowScene } from "./scenes/FlowScene";
 import { KeypointScene } from "./scenes/KeypointScene";
 import { NestScene } from "./scenes/NestScene";
 import { OutroScene } from "./scenes/OutroScene";
+import { TerminalScene } from "./scenes/TerminalScene";
 import { TitleScene } from "./scenes/TitleScene";
 
 export const TRANSITION_FRAMES = 9;
@@ -39,6 +40,8 @@ const SceneContent = ({
       return <KeypointScene scene={scene} />;
     case "figure":
       return <FigureScene scene={scene} />;
+    case "terminal":
+      return <TerminalScene scene={scene} />;
     case "flow":
       return <FlowScene scene={scene} />;
     case "nest":

@@ -52,6 +52,21 @@ export type FigureScene = SceneBase & {
   alt?: string;
 };
 
+/** ターミナル1行: 入力（cmd）/ 出力（out）/ 注釈（comment）のいずれか */
+export type TermLine =
+  | { cmd: string; note?: string }
+  | { out: string }
+  | { comment: string };
+
+export type TerminalScene = SceneBase & {
+  type: "terminal";
+  /** タイトルバー中央の文字（例 "ターミナル — projects"）。省略時は "ターミナル" */
+  windowTitle?: string;
+  /** 入力行の先頭プロンプト（例 "you@Mac ~/projects %"）。省略時は既定 */
+  prompt?: string;
+  lines: TermLine[];
+};
+
 export type FlowStep = { label: string; sub?: string; emphasis?: boolean };
 
 export type FlowScene = SceneBase & {
@@ -79,6 +94,7 @@ export type Scene =
   | CodeCompareScene
   | KeypointScene
   | FigureScene
+  | TerminalScene
   | FlowScene
   | NestScene
   | OutroScene;

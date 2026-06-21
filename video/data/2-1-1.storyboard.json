@@ -56,19 +56,17 @@
     },
     {
       "id": "three-commands",
-      "type": "codeCompare",
+      "type": "terminal",
       "heading": "3つの基本コマンド",
-      "rightAt": 0.5,
-      "left": {
-        "label": "入力",
-        "lines": ["pwd", "ls", "cd Documents"],
-        "caption": "打ったコマンド"
-      },
-      "right": {
-        "label": "結果",
-        "lines": ["/Users/you", "Desktop  Documents", "（Documents へ移動）"],
-        "caption": "返ってきた文字"
-      },
+      "windowTitle": "ターミナル — projects",
+      "prompt": "you@Mac ~/projects %",
+      "lines": [
+        { "cmd": "pwd", "note": "現在地" },
+        { "out": "/Users/you/projects" },
+        { "cmd": "ls", "note": "一覧" },
+        { "out": "資料.md  画像/  メモ.txt" },
+        { "cmd": "cd 画像", "note": "移動" }
+      ],
       "narration": "3つのコマンドを見てみましょう。pwd は現在地を表示し、ls は中のファイルの一覧を表示します。cd は、行き先を後ろに付けてフォルダを移動します。コマンドを打つと、結果が文字で返ります。この3つで、現在地を読み、確かめ、移動できます。"
     },
     {

@@ -36,6 +36,8 @@ TTS スクリプトがこれを読み、音声と実測尺を埋めた `<section
 - **title**: `sectionNo` / `title` / `subtitle`（導入の問いかけ 1 文）
 - **codeCompare**: `left` / `right` の 2 ペイン。各ペインは **IDE ウィンドウ風**（信号機ドット＋ファイル名タブ＋行番号＋VSCode 風シンタックスハイライト、`src/highlight.ts` が自動で色付け）で描画される。フィールド: `file`（タブのファイル名。例 `app/Models/Task.php`。省略時は `label`）・`lines`（コード行）・`errorLine`（0 始まり。エラー演出）・`caption`（ペイン下の一言）。`rightAt`（0〜1）で右ペインの登場を **ナレーションが右の話に移る位置** に合わせる（既定 0.45）
   - コードは「読み解く対象」。長すぎる全文は載せず、要点の数行に絞る（コピペ用の全文は本文が担う）
+- **terminal**: ターミナルウィンドウ（信号機ドット＋中央タイトル）で、コマンドの入力 → 出力を上から順に実演する。`codeCompare` が IDE（コードを読む）なら、`terminal` はシェル（コマンドを打つ）。フィールド: `windowTitle`（タイトルバー中央。例 `ターミナル — projects`）・`prompt`（入力行の先頭。例 `you@Mac ~/projects %`。省略時は既定）・`lines`（上から順の配列。各要素は `{cmd, note?}`〔入力。タイピング演出＋右端に `# note`〕／`{out}`〔出力。フェード表示〕／`{comment}`〔`# 注釈`〕のいずれか）。CLI 全般、Claude Code の起動・`/コマンド`、現在地やファイル操作の実演に使う
+  - 入力は決定的な「打つ手順」を見せる対象。出力は要点だけに絞る（長いログは載せない）。プロンプトや出力の細部は本物に寄せすぎず、ナレーションが指す要点が伝わればよい
 - **keypoint**: `cards`（2 枚。`title` と `body`）。二項対立・定義の対比用（1 枚目がティールアクセント、2 枚目が無彩色の濃スレート）。`body` は `\n` で改行でき、要素を1行ずつ並べると構造的で読みやすい（長い1文の自動折り返しは避ける）。`revealAt`（各カードの登場比、例 `[0.05, 0.45]`）で **各概念にナレーションが触れる位置** に合わせる
 - **figure**: `src`（`figures/<name>.jpg`。事前に `assets/diagrams/output/` から `video/public/figures/` へ cp する）・`alt`。/illustrate の白背景の概念図を額装して見せる
 - **flow**: `steps`（`label`・`sub`・`emphasis`）+ 任意の `fanout`（分岐先チップ）+ 任意の `tagline`（締めの標語）。`emphasis: true` のステップは鋼色で強調される。矢印は無彩色

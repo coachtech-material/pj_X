@@ -55,20 +55,18 @@
     },
     {
       "id": "read-paths",
-      "type": "codeCompare",
-      "heading": "パスを読んでみる",
-      "rightAt": 0.5,
-      "left": {
-        "label": "絶対パス",
-        "lines": ["/Users/you/article/draft.md", "C:\\Users\\you\\article\\draft.md"],
-        "caption": "ルートからの完全な道順（OS で表記が違う）"
-      },
-      "right": {
-        "label": "相対パス",
-        "lines": ["article/draft.md", "../budget/2026.csv"],
-        "caption": "現在地からの道案内"
-      },
-      "narration": "実際に、パスを読んでみましょう。左が絶対パスです。ルートから順にたどる完全な道順で、表記は OS で異なります。右が相対パスです。今いる場所を基点に、目的のファイルまでの短い道順で指します。ドットふたつを使えば、一つ上の別のフォルダもたどれます。"
+      "type": "terminal",
+      "heading": "現在地で相対パスが変わる",
+      "windowTitle": "ターミナル",
+      "prompt": "you@Mac %",
+      "lines": [
+        { "cmd": "pwd", "note": "いまの現在地" },
+        { "out": "/Users/you/projects" },
+        { "cmd": "cd article", "note": "記事フォルダへ移動" },
+        { "cmd": "pwd", "note": "現在地が変わった" },
+        { "out": "/Users/you/projects/article" }
+      ],
+      "narration": "相対パスは、いまいる場所が基点でした。確かめてみましょう。pwd で現在地を出すと、projects にいます。cd で article に入り、もう一度 pwd。パスの末尾に article が足され、現在地が一つ深くなりました。基点が変わると、同じ相対パスでも指す先が変わります。"
     },
     {
       "id": "tell-ai-by-path",
