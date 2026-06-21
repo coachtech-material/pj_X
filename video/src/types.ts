@@ -54,9 +54,13 @@ export type FigureScene = SceneBase & {
 
 /** ターミナル1行: 入力（cmd）/ 出力（out）/ 注釈（comment）のいずれか */
 export type TermLine =
-  | { cmd: string; note?: string; prompt?: string }
-  | { out: string }
-  | { comment: string };
+  | { cmd: string; note?: string; prompt?: string } // シェル: 入力行
+  | { out: string } // シェル: 出力行
+  | { comment: string } // 注釈行（# …）
+  | { user: string } // Claude Code: ユーザー発話（> プロンプト）
+  | { claude: string } // Claude Code: Claude の応答（⏺）
+  | { tool: string; result?: string } // Claude Code: ツール実行（⏺ Tool(args) ＋ ⎿ 結果）
+  | { approve: string; options?: string[] }; // Claude Code: 承認ゲート（金枠）
 
 export type TerminalScene = SceneBase & {
   type: "terminal";

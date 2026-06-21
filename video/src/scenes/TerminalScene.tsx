@@ -21,8 +21,26 @@ const clampOpt = {
   extrapolateRight: "clamp" as const,
 };
 
-const kindOf = (l: TermLine): "cmd" | "out" | "comment" =>
-  "cmd" in l ? "cmd" : "comment" in l ? "comment" : "out";
+type Kind = "cmd" | "user" | "claude" | "tool" | "approve" | "comment" | "out";
+
+const kindOf = (l: TermLine): Kind =>
+  "cmd" in l
+    ? "cmd"
+    : "user" in l
+      ? "user"
+      : "claude" in l
+        ? "claude"
+        : "tool" in l
+          ? "tool"
+          : "approve" in l
+            ? "approve"
+            : "comment" in l
+              ? "comment"
+              : "out";
+
+// 各ステップの先頭になる行（出力・注釈以外）。ステップ単位で音声尺に配分する
+const isPrimary = (k: Kind) =>
+  k === "cmd" || k === "user" || k === "claude" || k === "tool" || k === "approve";
 
 /** コマンド入力行: プロンプト + タイピング + 右端に注釈（# …） */
 const CmdRow = ({
@@ -114,6 +132,174 @@ const PlainRow = ({
   </div>
 );
 
+/** ユーザー発話: > プロンプト + タイピング（Claude Code への指示） */
+const UserRow = ({
+  text,
+  start,
+  frame,
+}: {
+  text: string;
+  start: number;
+  frame: number;
+}) => {
+  const typed = Math.floor(
+    interpolate(
+      frame,
+      [start, start + text.length * CHAR_SPEED],
+      [0, text.length],
+      clampOpt,
+    ),
+  );
+  const typing = typed > 0 && typed < text.length;
+  return (
+    <div
+      style={{
+        fontFamily: theme.fontMono,
+        fontSize: FONT,
+        lineHeight: LINE_H,
+        whiteSpace: "pre-wrap",
+        opacity: frame >= start ? 1 : 0,
+        marginTop: 8,
+      }}
+    >
+      <span style={{ color: theme.codeGutter }}>&gt; </span>
+      <span style={{ color: theme.codeText }}>{text.slice(0, typed)}</span>
+      {typing ? (
+        <span style={{ color: theme.accent, opacity: frame % 16 < 8 ? 1 : 0 }}>▍</span>
+      ) : null}
+    </div>
+  );
+};
+
+/** Claude の応答: ⏺（金）+ 本文（フェード） */
+const ClaudeRow = ({
+  text,
+  start,
+  frame,
+}: {
+  text: string;
+  start: number;
+  frame: number;
+}) => (
+  <div
+    style={{
+      display: "flex",
+      gap: 12,
+      fontFamily: theme.fontMono,
+      fontSize: FONT,
+      lineHeight: LINE_H,
+      opacity: fade(frame, start),
+      marginTop: 8,
+    }}
+  >
+    <span style={{ color: theme.accent }}>⏺</span>
+    <span style={{ color: theme.codeText, whiteSpace: "pre-wrap" }}>{text}</span>
+  </div>
+);
+
+/** ツール実行: ⏺（緑）Tool(args) + 任意の結果 ⎿ … */
+const ToolRow = ({
+  tool,
+  result,
+  start,
+  frame,
+}: {
+  tool: string;
+  result?: string;
+  start: number;
+  frame: number;
+}) => (
+  <div style={{ opacity: fade(frame, start), marginTop: 8 }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        fontFamily: theme.fontMono,
+        fontSize: FONT,
+        lineHeight: LINE_H,
+      }}
+    >
+      <span style={{ color: theme.codeComment }}>⏺</span>
+      <span style={{ color: theme.codeText }}>{tool}</span>
+    </div>
+    {result ? (
+      <div
+        style={{
+          fontFamily: theme.fontMono,
+          fontSize: FONT - 3,
+          lineHeight: LINE_H,
+          color: theme.codeGutter,
+          paddingLeft: 32,
+        }}
+      >
+        {`⎿  ${result}`}
+      </div>
+    ) : null}
+  </div>
+);
+
+/** 承認ゲート: 金枠の確認ボックス（実行してよいか） */
+const ApproveBox = ({
+  action,
+  options,
+  start,
+  frame,
+  fps,
+}: {
+  action: string;
+  options: string[];
+  start: number;
+  frame: number;
+  fps: number;
+}) => (
+  <div
+    style={{
+      ...springIn(frame, fps, start),
+      marginTop: 16,
+      border: `1.5px solid ${theme.accent}`,
+      borderRadius: 10,
+      background: theme.accentSoft,
+      padding: "18px 22px",
+      maxWidth: 820,
+    }}
+  >
+    <div
+      style={{
+        fontFamily: theme.fontJa,
+        fontSize: FONT - 7,
+        color: theme.accentEnd,
+        marginBottom: 8,
+      }}
+    >
+      実行してよいか確認
+    </div>
+    <div
+      style={{
+        fontFamily: theme.fontMono,
+        fontSize: FONT - 2,
+        color: theme.codeText,
+        marginBottom: 12,
+      }}
+    >
+      {action}
+    </div>
+    {options.map((o, i) => (
+      <div
+        key={i}
+        style={{
+          fontFamily: theme.fontJa,
+          fontSize: FONT - 4,
+          lineHeight: 1.7,
+          color: i === 0 ? theme.accentEnd : theme.codeTabText,
+          fontWeight: i === 0 ? 700 : 400,
+        }}
+      >
+        {`${i === 0 ? "❯" : "　"} ${i + 1}. ${o}`}
+      </div>
+    ))}
+  </div>
+);
+
 export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -126,7 +312,7 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
   const audioFrames = scene.audioFrames ?? scene.totalFrames ?? 300;
   const steps: number[][] = [];
   scene.lines.forEach((l, i) => {
-    if (kindOf(l) === "cmd" || steps.length === 0) {
+    if (isPrimary(kindOf(l)) || steps.length === 0) {
       steps.push([i]);
     } else {
       steps[steps.length - 1].push(i);
@@ -148,8 +334,11 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
     for (const li of idxs) {
       starts[li] = c;
       const l = scene.lines[li];
-      if (kindOf(l) === "cmd") {
+      const k = kindOf(l);
+      if (k === "cmd") {
         c += (l as { cmd: string }).cmd.length * CHAR_SPEED + 8; // 入力直後に出力
+      } else if (k === "user") {
+        c += (l as { user: string }).user.length * CHAR_SPEED + 8;
       } else {
         c += OUT_REVEAL + 4;
       }
@@ -248,6 +437,51 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
                       color={theme.codeComment}
                       start={starts[i]}
                       frame={frame}
+                    />
+                  );
+                }
+                if (k === "user") {
+                  return (
+                    <UserRow
+                      key={i}
+                      text={(l as { user: string }).user}
+                      start={starts[i]}
+                      frame={frame}
+                    />
+                  );
+                }
+                if (k === "claude") {
+                  return (
+                    <ClaudeRow
+                      key={i}
+                      text={(l as { claude: string }).claude}
+                      start={starts[i]}
+                      frame={frame}
+                    />
+                  );
+                }
+                if (k === "tool") {
+                  const tl = l as { tool: string; result?: string };
+                  return (
+                    <ToolRow
+                      key={i}
+                      tool={tl.tool}
+                      result={tl.result}
+                      start={starts[i]}
+                      frame={frame}
+                    />
+                  );
+                }
+                if (k === "approve") {
+                  const al = l as { approve: string; options?: string[] };
+                  return (
+                    <ApproveBox
+                      key={i}
+                      action={al.approve}
+                      options={al.options ?? ["はい", "いいえ、別の方法を伝える"]}
+                      start={starts[i]}
+                      frame={frame}
+                      fps={fps}
                     />
                   );
                 }
