@@ -71,8 +71,37 @@ markdown_extensions:
 
 nav:
   - トップ: index.md
+  - Part 1 導入:
+    - Chapter 1 AIに業務を任せる:
+      - 1-1-1 なぜ今AIに業務を任せるのか: part-01/chapter-01/1-1-1.md
+      - 1-1-2 チャットAIとAIエージェントの違い: part-01/chapter-01/1-1-2.md
+    - Chapter 2 セットアップと最初の成果物:
+      - 1-2-1 Claude Code のインストールと認証: part-01/chapter-02/1-2-1.md
+      - 1-2-2 小さなタスクで最初の成果物を出す: part-01/chapter-02/1-2-2.md
+    - Chapter 3 AIに任せる思考とプロンプト:
+      - 1-3-1 ブログ記事を丸投げする: part-01/chapter-03/1-3-1.md
+      - 1-3-2 プロンプトのフレームワークとAIに任せるリスク: part-01/chapter-03/1-3-2.md
+      - 1-3-3 仮説で当てる: part-01/chapter-03/1-3-3.md
+      - 1-3-4 構造化とアウトカムから決める完成条件: part-01/chapter-03/1-3-4.md
   - Part 2 IT・生成AI基礎:
     - Chapter 1 コンピュータとコマンドライン:
       - 2-1-1 コマンドラインの基本: part-02/chapter-01/2-1-1.md
       - 2-1-2 ファイル・フォルダ・パス: part-02/chapter-01/2-1-2.md
       - 2-1-3 拡張子とプレーンテキスト: part-02/chapter-01/2-1-3.md
+    - Chapter 2 プログラミングの基礎:
+      - 2-2-1 プログラムの基本概念: part-02/chapter-02/2-2-1.md
+      - 2-2-2 プログラミング言語: part-02/chapter-02/2-2-2.md
+      - 2-2-3 テストとTDD: part-02/chapter-02/2-2-3.md
+    - Chapter 3 データとデータベース:
+      - 2-3-1 データベースとは: part-02/chapter-03/2-3-1.md
+      - 2-3-2 テーブル設計と正規化: part-02/chapter-03/2-3-2.md
+    - Chapter 4 Webの仕組み:
+      - 2-4-1 インターネットとHTTP: part-02/chapter-04/2-4-1.md
+      - 2-4-2 Webアプリの仕組み: part-02/chapter-04/2-4-2.md
+      - 2-4-3 API: part-02/chapter-04/2-4-3.md
+      - 2-4-4 認証と認可: part-02/chapter-04/2-4-4.md
+      - 2-4-5 Webアプリが公開される仕組み: part-02/chapter-04/2-4-5.md
+    - Chapter 5 生成AIとセキュリティ:
+      - 2-5-1 生成AIの仕組み: part-02/chapter-05/2-5-1.md
+      - 2-5-2 生成AIの限界とリスク: part-02/chapter-05/2-5-2.md
+      - 2-5-3 セキュリティ: part-02/chapter-05/2-5-3.md
