@@ -59,7 +59,9 @@ export const CaptionOverlay = ({
   const segments = useMemo(() => splitIntoSegments(narration), [narration]);
 
   const totalChars = segments.reduce((sum, s) => sum + s.length, 0);
-  const lead = 3;
+  // 字幕は音声と同時（フレーム0）から出す。lead を入れると音声が字幕より先に
+  // 聞こえてズレて感じるため 0 にする（レンダ済み mp4 ではフレーム同期する）。
+  const lead = 0;
   let acc = lead;
   let current: { text: string; start: number; dur: number } | null = null;
   for (const seg of segments) {
@@ -80,7 +82,7 @@ export const CaptionOverlay = ({
     extrapolateLeft: "clamp" as const,
     extrapolateRight: "clamp" as const,
   };
-  const fadeIn = interpolate(frame, [current.start, current.start + 5], [0, 1], clamp);
+  const fadeIn = interpolate(frame, [current.start, current.start + 3], [0, 1], clamp);
   const fadeOut = interpolate(
     frame,
     [current.start + current.dur - 6, current.start + current.dur],

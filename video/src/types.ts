@@ -73,10 +73,35 @@ export type TerminalScene = SceneBase & {
   lines: TermLine[];
 };
 
+/** ターミナル比較の1ペイン（プロンプトの良し悪しと出力差を左右で見せる） */
+export type TerminalPane = {
+  /** タイトルバー中央の文字。省略時は "Claude Code" */
+  windowTitle?: string;
+  lines: TermLine[];
+  /** ペイン下の一言（例 "どこかで読んだ一般論"）。`good: true` で金の強調になる */
+  caption?: string;
+  /** caption と枠を金で強調（良い側に付ける） */
+  good?: boolean;
+};
+
+export type TerminalCompareScene = SceneBase & {
+  type: "terminalCompare";
+  left: TerminalPane;
+  right: TerminalPane;
+  /** 右ペインが動き出すタイミング（audioFrames に対する 0〜1。ナレーションで右の話に移る位置。既定 0.45） */
+  rightAt?: number;
+};
+
 export type FlowStep = { label: string; sub?: string; emphasis?: boolean };
 
 export type FlowScene = SceneBase & {
   type: "flow";
+  /** 各ステップの登場タイミング（audioFrames に対する 0〜1 の配列。ナレーションで各ステップに触れる位置に合わせる。省略時は自動配分） */
+  revealAt?: number[];
+  /** fanout（分岐チップ）の登場タイミング（audioFrames に対する 0〜1）。
+   *  - 数値: その位置から各チップを少しずつずらして出す（省略時 0.42）
+   *  - 配列: チップごとに位置を指定（ナレーションで各項目を言う瞬間に1枚ずつ出す） */
+  fanoutAt?: number | number[];
   steps: FlowStep[];
   fanout?: { label: string }[];
   tagline?: string;
@@ -101,6 +126,7 @@ export type Scene =
   | KeypointScene
   | FigureScene
   | TerminalScene
+  | TerminalCompareScene
   | FlowScene
   | NestScene
   | OutroScene;

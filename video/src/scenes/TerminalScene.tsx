@@ -12,8 +12,9 @@ import { SceneHeading } from "./SceneHeading";
 const CHAR_SPEED = 1.1; // 入力1文字あたりのフレーム数（IDE よりわずかに速い）
 const LINE_GAP = 7; // 行間の待ち
 const OUT_REVEAL = 9; // 出力・注釈が現れるまでの猶予
-const FONT = 30;
-const LINE_H = 1.85;
+// フォント・行間はやや詰める。行数が多い回（承認ゲート付き）でも字幕に被らないため
+const FONT = 28;
+const LINE_H = 1.65;
 const DEFAULT_PROMPT = "you@Mac ~/projects %";
 
 const clampOpt = {
@@ -266,8 +267,9 @@ const ApproveBox = ({
     <div
       style={{
         fontFamily: theme.fontJa,
-        fontSize: FONT - 7,
-        color: theme.accentEnd,
+        fontSize: FONT - 6,
+        color: theme.accentBlue,
+        fontWeight: 700,
         marginBottom: 8,
       }}
     >
@@ -290,7 +292,7 @@ const ApproveBox = ({
           fontFamily: theme.fontJa,
           fontSize: FONT - 4,
           lineHeight: 1.7,
-          color: i === 0 ? theme.accentEnd : theme.codeTabText,
+          color: i === 0 ? theme.accentBlue : theme.codeTabText,
           fontWeight: i === 0 ? 700 : 400,
         }}
       >
@@ -351,7 +353,7 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
       <div
         style={{
           position: "absolute",
-          top: 264,
+          top: 206,
           left: 0,
           right: 0,
           display: "flex",
@@ -410,8 +412,8 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
             <div
               style={{
                 background: theme.codeBg,
-                padding: "26px 34px",
-                minHeight: 300,
+                padding: "22px 34px",
+                minHeight: 264,
               }}
             >
               {scene.lines.map((l, i) => {

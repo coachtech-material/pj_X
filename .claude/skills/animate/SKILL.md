@@ -42,29 +42,33 @@ Remotion（React ベースの動画フレームワーク）で、各 Section の
 ### 2. generate（一括生成）
 
 ```
-/animate Chapter 1          ← plan → 確認 → 生成（既定の流れ）
+/animate Chapter 1          ← plan → 確認 → storyboard+TTS → Studio で確認 → 確定後にレンダ・配信・挿入
 /animate generate 2-1 --yes
 ```
 
-スコープ内の未生成 Section を順に処理する。`--force` で生成済みも作り直す。
+スコープ内の未生成 Section を順に処理する。**レンダ（書き出し）の前に Studio でプレビューし、フィードバックを反映して確定させてから mp4 を焼く**（「効率的な制作フロー」のゲート）。`--force` で生成済みも作り直す。
 
 ### 3. 単発の修正
 
 特定シーンの台本・音声・デザインの修正は「1 Section あたりの手順」の該当ステップだけやり直す（下記「音声・台本の修正サイクル」）。
 
-## 効率的な制作フロー（デザインは Studio でライブ、mp4 は確定後に1回）
+## 効率的な制作フロー（Studio で確認 → 確定後に mp4 を1回）
 
-毎回フル mp4 を焼いてから直すのは遅い。**デザイン調整と内容の量産を分ける**のが基本。
+毎回フル mp4 を焼いてから直すのは遅い。**書き出し（レンダ）前に必ず Studio でプレビューし、フィードバックを回して確定させる**のが基本。レンダ・配信・挿入は確定後に1回だけ行う。
 
-1. **デザイン期（レンダ不要）**: `cd video && npx remotion studio --port 3333` を起動しブラウザで開く。`src/theme.ts`・`src/scenes/*` を編集するとホットリロードで即反映され、タイムラインをスクラブして全シーンをライブ確認できる。既定表示は実セクション（`Root.tsx` の defaultProps = `1-2.props.json`、全シーン型を含む）。**色・段差・モーション・字幕・コード表現などの「見た目」はここで詰めて確定する**（mp4 は焼かない）。
-2. **静止画 QA（任意）**: 特定フレームだけ確認するなら `npx remotion still src/index.ts SectionVideo out/q-<N>.png --frame=<N> --props=data/<id>.props.json --scale=0.5`。
-3. **内容の量産（確定後）**: 見た目が固まったら各 Section の storyboard を書く → TTS → mp4。デザインを触らないので安定して通る。
-4. **話速の微調整**: `data/voice.json` の `tempo`（atempo 倍率）で、音声を作り直さず（API なし）速度だけ変えられる。生音声は `scene-NN.raw.wav` に保持され、tempo 変更は再合成しない。
-5. **個別の手直し**: 文言など内容変更はその Section だけ再生成。
+1. **storyboard + TTS（音声つきプレビューの材料）**: 対象 Section の storyboard を書き、TTS まで通す（`data/<id>.props.json` と音声が揃う）。ここまではレンダ不要。
+2. **Studio で確認（書き出し前ゲート・必須）**: `cd video && npx remotion studio --port 3333` を起動。`Root.tsx` は **生成済み Section ごとに `sec-<id>` という Composition を登録**してあるので（例 `sec-1-1-1`）、Studio 左のサイドバーから選ぶと、その Section を**音声つきでスクラブ・再生**して確認できる（`SectionVideo` はレンダ用）。`src/theme.ts`・`src/scenes/*`・`src/anim.ts` を編集するとホットリロードで即反映。storyboard / `data/<id>.props.json` の変更も拾う（props を更新したら TTS を再実行して props を書き直す）。**ここで色・段差・モーション・字幕・表示と音声のタイミング・文言を詰め、ユーザーのフィードバックを反映して確定させる**（mp4 は焼かない）。
+3. **静止画 QA（任意・自分の目視用）**: 特定フレームだけ確認するなら `npx remotion still src/index.ts SectionVideo out/q-<N>.png --frame=<N> --props=data/<id>.props.json --scale=0.5`。
+4. **確定後にレンダ・配信・挿入**: Studio で OK が出てから mp4 を焼く（下記「1 Section あたりの手順」5〜7）。
+5. **話速の微調整**: `data/voice.json` の `tempo`（atempo 倍率）で、音声を作り直さず（API なし）速度だけ変えられる。生音声は `scene-NN.raw.wav` に保持され、tempo 変更は再合成しない。
 
-要するに「**見た目は Studio でライブに固める → 確定したら mp4 を1回**」。フィードバック1往復ごとにフルレンダしない。
+要するに「**storyboard+TTS → Studio でフィードバックを回して確定 → 確定したら mp4 を1回**」。フィードバック1往復ごとにフルレンダしない。
+
+**横断的な修正と個別の修正**: デザイン・モーション・タイミングの不具合は複数 Section に跨ることが多い（`src/scenes/*`・`anim.ts` を直すと全 Section に効く）。文言・シーン構成の不具合はその Section の storyboard を直す。どちらも Studio のホットリロードで確認しながら回す。新しい Section の props を生成したら `Root.tsx` の import 配列に1行足すと、Studio のサイドバーに `sec-<id>` が増える。
 
 ## 1 Section あたりの手順（中核）
+
+> 手順 1〜4（storyboard + TTS）を対象 Section ぶん用意したら、**5 のレンダに進む前に必ず Studio でプレビューしてフィードバックを回す**（「効率的な制作フロー」のゲート）。Studio で確定してからレンダ・配信・挿入（5〜7）を行う。複数 Section をまとめて作るときは、全 Section の storyboard+TTS を先に通し、Studio でまとめて確認・修正してからレンダする方が手戻りが少ない。
 
 1. **Section ファイルを全文読む**
 2. **ストーリーボードを書く**: `video/data/<sectionId>.storyboard.json`。シーン構成・台本の書き方は `references/storyboard.md`、シーン型の選び方と尺は `references/criteria.md` に従う。読み上げは **narration から自動生成**される（`pronunciation.json` で英語・記号だけカタカナ化、漢字は残す）。通常 `reading` は書かず、聞いて違和感がある箇所だけ個別に上書きする（詳細は `storyboard.md`）。新しい英語用語は `pronunciation.json` に追加する。書いたら `narration` を `stop-ai-slop-jp`（Skill ツール）で AI 臭チェックし、不自然な言い回しを平易に直す（本文と表現を揃える）。誤読しやすい漢字は `references/reading-pitfalls.md` に従って対策する（単一読みは `pronunciation.json`、読みが割れる字はひらがな）

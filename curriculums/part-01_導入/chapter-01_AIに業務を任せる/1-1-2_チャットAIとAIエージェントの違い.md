@@ -3,6 +3,10 @@
 !!! note "前提知識"
     このセクションは 1-1-1「なぜ今AIに業務を任せるのか」の内容を前提としています。
 
+<video controls preload="metadata" playsinline width="100%">
+  <source src="https://github.com/coachtech-material/pj_X/releases/download/videos/1-1-2.mp4" type="video/mp4">
+</video>
+
 ## このセクションで学ぶこと
 
 - 質問に回答を返すチャットAIの働き方
