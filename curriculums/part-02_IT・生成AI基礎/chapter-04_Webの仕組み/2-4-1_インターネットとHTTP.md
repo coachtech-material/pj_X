@@ -15,6 +15,10 @@
 
 **この Chapter の進め方**: まず 2-4-1 で通信の基本（HTTP）を押さえ、2-4-2 で Web アプリの3要素、2-4-3 でサービス同士をつなぐ API、2-4-4 で本人確認とアクセス制御、2-4-5 で公開のしくみへと進みます。どれも AI の出力やエラーを読み解ける程度を目指します。
 
+<video controls preload="metadata" playsinline width="100%">
+  <source src="https://github.com/coachtech-material/pj_X/releases/download/videos/2-4-1.mp4" type="video/mp4">
+</video>
+
 ## このセクションで学ぶこと
 
 - ブラウザとサーバが、要求（リクエスト）と応答（レスポンス）でやり取りすること
