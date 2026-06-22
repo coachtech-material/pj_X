@@ -67,11 +67,11 @@ Remotion（React ベースの動画フレームワーク）で、各 Section の
 ## 1 Section あたりの手順（中核）
 
 1. **Section ファイルを全文読む**
-2. **ストーリーボードを書く**: `video/data/<sectionId>.storyboard.json`。シーン構成・台本の書き方は `references/storyboard.md`、シーン型の選び方と尺は `references/criteria.md` に従う。読み上げは **narration から自動生成**される（`pronunciation.json` で英語・記号だけカタカナ化、漢字は残す）。通常 `reading` は書かず、聞いて違和感がある箇所だけ個別に上書きする（詳細は `storyboard.md`）。新しい英語用語は `pronunciation.json` に追加する
-3. **既存概念図を素材化**: 🧠 直後の概念図（/illustrate の出力）を使う場合は `cp assets/diagrams/output/<name>.jpg video/public/figures/`
+2. **ストーリーボードを書く**: `video/data/<sectionId>.storyboard.json`。シーン構成・台本の書き方は `references/storyboard.md`、シーン型の選び方と尺は `references/criteria.md` に従う。読み上げは **narration から自動生成**される（`pronunciation.json` で英語・記号だけカタカナ化、漢字は残す）。通常 `reading` は書かず、聞いて違和感がある箇所だけ個別に上書きする（詳細は `storyboard.md`）。新しい英語用語は `pronunciation.json` に追加する。書いたら `narration` を `stop-ai-slop-jp`（Skill ツール）で AI 臭チェックし、不自然な言い回しを平易に直す（本文と表現を揃える）。誤読しやすい漢字は `references/reading-pitfalls.md` に従って対策する（単一読みは `pronunciation.json`、読みが割れる字はひらがな）
+3. **既存概念図を素材化**: 導入末尾（「現場での考え方」コラム）直後の概念図（/illustrate の出力）を使う場合は `cp assets/diagrams/output/<name>.（jpg|png） video/public/figures/`
 4. **TTS**: `cd video && node scripts/tts-gcloud.mjs <sectionId>`（Google Chirp 3 HD。生成済み wav は再利用される）。**Chirp を既定にするのは、呼び出しをまたいでも声が一貫し、シーン間・動画間で声がぶれないため**（生成型の Gemini preview は同じ voice でも毎回読み方が揺れる）。代替は `tts-gemini.mjs`（生成型・トーン指示可だが一貫しない）／ `tts-openai.mjs`（生成型・`instructions` でトーン指示可・比較的一貫）。いずれも同一 CLI 契約・`--force` で再生成
 5. **レンダリング**: `npx remotion render src/index.ts SectionVideo out/<sectionId>.mp4 --props=data/<sectionId>.props.json`（1 本あたり約 6 分）
-6. **QA**: 各シーンの中間フレームを `npx remotion still src/index.ts SectionVideo out/qa-<frame>.png --frame=<N> --props=... --scale=0.5` で 3〜4 枚書き出し、Read で目視確認（文字切れ・レイアウト崩れ・字幕）。音声も冒頭シーンを試聴確認する
+6. **QA**: 各シーンの中間フレームを `npx remotion still src/index.ts SectionVideo out/qa-<frame>.png --frame=<N> --props=... --scale=0.5` で 3〜4 枚書き出し、Read で目視確認（文字切れ・レイアウト崩れ・字幕）。音声を試聴し、読み間違いがないか確認する（`references/reading-pitfalls.md` の漢字を含むシーンは特に注意）
 7. **配信と挿入**:
    - `gh release upload videos out/<sectionId>.mp4 --clobber`（初回は `gh release create videos --title "Section 解説動画" --notes "教材の Section 解説動画アセット"`）
    - Section タイトル直後に下記テンプレートで挿入する
