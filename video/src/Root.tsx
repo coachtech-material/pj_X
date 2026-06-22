@@ -18,6 +18,9 @@ import s134 from "../data/1-3-4.props.json";
 import s211 from "../data/2-1-1.props.json";
 import s212 from "../data/2-1-2.props.json";
 import s213 from "../data/2-1-3.props.json";
+import s221 from "../data/2-2-1.props.json";
+import s222 from "../data/2-2-2.props.json";
+import s223 from "../data/2-2-3.props.json";
 
 const FPS = 30;
 
@@ -30,6 +33,9 @@ const sections = [
   s211,
   s212,
   s213,
+  s221,
+  s222,
+  s223,
 ] as unknown as SectionVideoProps[];
 
 const calculateMetadata: CalculateMetadataFunction<SectionVideoProps> = async ({
