@@ -76,7 +76,7 @@
       "left": {
         "label": "四則演算",
         "file": "calc.js",
-        "lines": ["let total = price * 3;  // 掛け算", "let zei = total * 0.1;  // 税額", "let nokori = stock - 1; // 引き算"],
+        "lines": ["let goukei = price * 3;  // 掛け算 *", "let wa = kakaku + zei;   // 足し算 +", "let nokori = zaiko - 1;  // 引き算 -", "let heikin = goukei / 3; // 割り算 /"],
         "caption": "+ - * / で計算する"
       },
       "right": {

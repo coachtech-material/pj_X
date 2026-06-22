@@ -67,6 +67,10 @@ const CodeLine = ({
         fontSize: FONT,
         lineHeight: LINE_H,
         whiteSpace: "pre",
+        // 合字を無効化（=== が ≡、<= が ≤ のような1記号に化けるのを防ぐ。
+        // 非エンジニアには素の演算子で見せる）
+        fontVariantLigatures: "none",
+        fontFeatureSettings: '"liga" 0, "calt" 0',
         background: isError
           ? `rgba(255,122,122,${0.16 * errorOpacity})`
           : "transparent",
