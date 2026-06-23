@@ -105,3 +105,35 @@ nav:
       - 2-5-1 生成AIの仕組み: part-02/chapter-05/2-5-1.md
       - 2-5-2 生成AIの限界とリスク: part-02/chapter-05/2-5-2.md
       - 2-5-3 セキュリティ: part-02/chapter-05/2-5-3.md
+  - Part 3 Claude Code 基礎:
+    - Chapter 1 基本操作:
+      - 3-1-1 依頼して実行する: part-03/chapter-01/3-1-1.md
+      - 3-1-2 ファイル編集と差分の確認: part-03/chapter-01/3-1-2.md
+      - 3-1-3 モデル・effort・コスト: part-03/chapter-01/3-1-3.md
+      - 3-1-4 権限と Plan モードで自律度を選ぶ: part-03/chapter-01/3-1-4.md
+      - 3-1-5 中断・巻き戻し・再開: part-03/chapter-01/3-1-5.md
+      - 3-1-6 出力の検証と軌道修正: part-03/chapter-01/3-1-6.md
+    - Chapter 2 コンテキスト管理:
+      - 3-2-1 コンテキストの仕組みと重要性: part-03/chapter-02/3-2-1.md
+      - 3-2-2 コンテキストを整える: part-03/chapter-02/3-2-2.md
+    - Chapter 3 前提と手順の再利用:
+      - 3-3-1 CLAUDE.md で前提を渡す: part-03/chapter-03/3-3-1.md
+      - 3-3-2 Skills で手順を再利用する: part-03/chapter-03/3-3-2.md
+    - Chapter 4 外部連携と拡張:
+      - 3-4-1 MCP で外部につなぐ: part-03/chapter-04/3-4-1.md
+      - 3-4-2 サブエージェントで並列に任せる: part-03/chapter-04/3-4-2.md
+      - 3-4-3 hooks で自動化する: part-03/chapter-04/3-4-3.md
+      - 3-4-4 プラグインで既製の機能を導入する: part-03/chapter-04/3-4-4.md
+    - Chapter 5 記事を作る:
+      - 3-5-1 記事を一筆書きで作る: part-03/chapter-05/3-5-1.md
+  - Part 4 Claude Code 応用:
+    - Chapter 1 ハーネスと仕組み化:
+      - 4-1-1 プロンプト・コンテキスト・ハーネスの3階層: part-04/chapter-01/4-1-1.md
+      - 4-1-2 Skill・CLAUDE.md・設定に残す: part-04/chapter-01/4-1-2.md
+      - 4-1-3 資産化して属人化を解消する: part-04/chapter-01/4-1-3.md
+    - Chapter 2 仕様駆動（SDD）:
+      - 4-2-1 仕様駆動の考え方: part-04/chapter-02/4-2-1.md
+      - 4-2-2 要件・設計・タスクの3段で固める: part-04/chapter-02/4-2-2.md
+    - Chapter 3 品質・コスト・ガバナンス:
+      - 4-3-1 品質とコストの最適化: part-04/chapter-03/4-3-1.md
+      - 4-3-2 ガバナンス: part-04/chapter-03/4-3-2.md

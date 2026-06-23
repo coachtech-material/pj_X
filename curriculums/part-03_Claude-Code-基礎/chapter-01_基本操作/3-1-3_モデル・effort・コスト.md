@@ -3,6 +3,10 @@
 !!! note "前提知識"
     このセクションは 3-1-2「ファイル編集と差分の確認」の内容を前提としています。
 
+<video controls preload="metadata" playsinline width="100%">
+  <source src="https://github.com/coachtech-material/pj_X/releases/download/videos/3-1-3.mp4" type="video/mp4">
+</video>
+
 ## このセクションで学ぶこと
 
 - 使う AI（モデル）を選び分けられること

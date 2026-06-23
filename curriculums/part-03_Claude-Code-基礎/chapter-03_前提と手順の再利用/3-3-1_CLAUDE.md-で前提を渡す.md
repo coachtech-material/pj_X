@@ -12,6 +12,10 @@
 
 **この Chapter の進め方**: 3-3-1 で、毎回説明していた前提を CLAUDE.md に書いて渡す方法を押さえ、3-3-2 で、繰り返す作業手順をスキルとして保存し呼び出す方法へ進みます。これらを束ねて仕組みとして固める設計は Part4 です。
 
+<video controls preload="metadata" playsinline width="100%">
+  <source src="https://github.com/coachtech-material/pj_X/releases/download/videos/3-3-1.mp4" type="video/mp4">
+</video>
+
 ## このセクションで学ぶこと
 
 - 毎回説明していた前提（用語・ルール・進め方）を CLAUDE.md に書いて渡すと、AI が踏まえて動くこと
@@ -35,6 +39,8 @@
 
 !!! quote "現場での考え方"
     CLAUDE.md を書く前は、新しいセッションのたびに「結論から書いて」「箇条書きを多用しないで」と同じ注文を毎回付けていました。前提を CLAUDE.md にまとめてからは、起動した直後から狙いどおりの文体で返ってくるようになり、毎回の前置きが要らなくなりました。
+
+![CLAUDE.md に用語・文体・数字などの前提を一度だけ書いておくと、起動のたびに自動で読み込まれ、毎回のセッションが前提を踏まえた状態で始まる流れを示した概念図](../../../assets/diagrams/output/3-3-1-claude-md.png)
 
 ---
 

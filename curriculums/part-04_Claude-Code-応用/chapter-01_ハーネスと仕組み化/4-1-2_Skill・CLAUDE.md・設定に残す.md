@@ -3,6 +3,10 @@
 !!! note "前提知識"
     このセクションは 4-1-1「プロンプト・コンテキスト・ハーネスの3階層」の内容を前提としています。
 
+<video controls preload="metadata" playsinline width="100%">
+  <source src="https://github.com/coachtech-material/pj_X/releases/download/videos/4-1-2.mp4" type="video/mp4">
+</video>
+
 ## このセクションで学ぶこと
 
 - うまくいった仕事の手順を Skill、前提・ルールを CLAUDE.md（rules・settings）に書き出すこと
@@ -21,6 +25,8 @@
 ある日、試行錯誤の末に、議事録の整形を狙いどおりに仕上げられたとします。発言の整理のしかた、決定事項の抜き出し方、表の形まで、指示を重ねてようやく形になった。問題は次回です。新しいセッションは空から始まる（3-2-1）ので、また同じ指示を一から組み立て直すことになります。
 
 うまくいったときのやり方を、その場のやり取りに埋もれさせず、次回から呼び出せる形に書き出しておく。そうすれば、一度の成功が、毎回の成果になります。書き出す先が、Skill・CLAUDE.md・設定です。
+
+![うまくいった仕事を、手順（Skill）・前提や用語（CLAUDE.md）・文体や表記ルール（.claude/rules/）・権限や既定（settings.json）の4つに性質で振り分け、それぞれの置き場所に対応づけて残すことを示した概念図](../../../assets/diagrams/output/4-1-2-route-by-nature.png)
 
 ## 手順は Skill、前提は CLAUDE.md
 

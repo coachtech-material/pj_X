@@ -3,6 +3,10 @@
 !!! note "前提知識"
     このセクションは 3-1-3「モデル・effort・コスト」の内容を前提としています。
 
+<video controls preload="metadata" playsinline width="100%">
+  <source src="https://github.com/coachtech-material/pj_X/releases/download/videos/3-1-4.mp4" type="video/mp4">
+</video>
+
 ## このセクションで学ぶこと
 
 - 確認なしで実行できる範囲が変わる権限モードを `Shift+Tab` で切り替えられること
