@@ -78,6 +78,9 @@ export const theme = {
   // アクセント（= ブランドの1色。グラデ・淡色はここで導く）
   accent: brand.accent,
   accentBlue: brand.accentEnd,
+  // accentEnd は accentBlue と同値の別名。誤って theme.accentEnd を参照しても
+  // undefined（＝色未指定で黒文字に化ける）にならないようにする保険
+  accentEnd: brand.accentEnd,
   accentGrad: `linear-gradient(90deg, ${brand.accent} 0%, ${brand.accentEnd} 100%)`,
   accentText: brand.accentText,
   accentDeep: brand.accentDeep,
