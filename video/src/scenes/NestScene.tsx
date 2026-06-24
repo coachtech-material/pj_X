@@ -22,8 +22,10 @@ export const NestScene = ({ scene }: { scene: NestSceneType }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const audioFrames = scene.audioFrames ?? 400;
-  // 外側（容れ物）から順に出す
-  const appearFrac = [0.5, 0.3, 0.08]; // index 0=inner が最後
+  // 既定は外側（容れ物）から順に出す（index 0=inner が最後）。
+  // scene.revealAt があれば layers と同じ内側→外側の並びでナレーションに合わせて上書きする。
+  const appearFrac = [0.5, 0.3, 0.08];
+  const appearFracOf = (i: number) => scene.revealAt?.[i] ?? appearFrac[i] ?? 0.1;
   const n = scene.layers.length;
 
   return (
@@ -32,7 +34,7 @@ export const NestScene = ({ scene }: { scene: NestSceneType }) => {
       {scene.layers.map((layer, i) => {
         const g = GEOM[i] ?? GEOM[GEOM.length - 1];
         const isInner = i === 0;
-        const appearAt = Math.round(audioFrames * (appearFrac[i] ?? 0.1));
+        const appearAt = Math.round(audioFrames * appearFracOf(i));
         const f = Math.max(0, frame - appearAt);
         const s = spring({
           frame: f,

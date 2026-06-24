@@ -31,6 +31,28 @@ import s245 from "../data/2-4-5.props.json";
 import s251 from "../data/2-5-1.props.json";
 import s252 from "../data/2-5-2.props.json";
 import s253 from "../data/2-5-3.props.json";
+import s311 from "../data/3-1-1.props.json";
+import s312 from "../data/3-1-2.props.json";
+import s313 from "../data/3-1-3.props.json";
+import s314 from "../data/3-1-4.props.json";
+import s315 from "../data/3-1-5.props.json";
+import s316 from "../data/3-1-6.props.json";
+import s321 from "../data/3-2-1.props.json";
+import s322 from "../data/3-2-2.props.json";
+import s331 from "../data/3-3-1.props.json";
+import s332 from "../data/3-3-2.props.json";
+import s333 from "../data/3-3-3.props.json";
+import s341 from "../data/3-4-1.props.json";
+import s342 from "../data/3-4-2.props.json";
+import s343 from "../data/3-4-3.props.json";
+import s344 from "../data/3-4-4.props.json";
+import s411 from "../data/4-1-1.props.json";
+import s412 from "../data/4-1-2.props.json";
+import s413 from "../data/4-1-3.props.json";
+import s421 from "../data/4-2-1.props.json";
+import s422 from "../data/4-2-2.props.json";
+import s431 from "../data/4-3-1.props.json";
+import s432 from "../data/4-3-2.props.json";
 
 const FPS = 30;
 
@@ -56,6 +78,28 @@ const sections = [
   s251,
   s252,
   s253,
+  s311,
+  s312,
+  s313,
+  s314,
+  s315,
+  s316,
+  s321,
+  s322,
+  s331,
+  s332,
+  s333,
+  s341,
+  s342,
+  s343,
+  s344,
+  s411,
+  s412,
+  s413,
+  s421,
+  s422,
+  s431,
+  s432,
 ] as unknown as SectionVideoProps[];
 
 const calculateMetadata: CalculateMetadataFunction<SectionVideoProps> = async ({

@@ -193,7 +193,7 @@ export const SectionVideo = ({
       }}
     >
       <Backdrop />
-      <TransitionSeries>{items}</TransitionSeries>
+      <TransitionSeries from={1}>{items}</TransitionSeries>
       <ProgressBar />
       <EndFade />
     </AbsoluteFill>

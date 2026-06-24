@@ -34,14 +34,20 @@ const CodeLine = ({
   frame: number;
 }) => {
   const tokens = useMemo(() => tokenize(line), [line]);
-  const typedChars = Math.floor(
-    interpolate(
-      frame,
-      [startFrame, startFrame + line.length * CHAR_SPEED],
-      [0, line.length],
-      clampOpt,
-    ),
-  );
+  // 空行（line.length === 0）は打鍵時間が 0 で interpolate の inputRange が
+  // [start, start] に潰れるため、ガードして 0 文字（＝空行）として扱う。
+  const typeSpan = line.length * CHAR_SPEED;
+  const typedChars =
+    typeSpan <= 0
+      ? 0
+      : Math.floor(
+          interpolate(
+            frame,
+            [startFrame, startFrame + typeSpan],
+            [0, line.length],
+            clampOpt,
+          ),
+        );
   const typing = typedChars > 0 && typedChars < line.length;
   const done = typedChars >= line.length;
   const errorOpacity =

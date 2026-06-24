@@ -1,0 +1,89 @@
+{
+  "sectionId": "3-4-3",
+  "sectionLabel": "Part 3 Claude Code 基礎 / Chapter 3-4",
+  "title": "hooks で自動化する",
+  "scenes": [
+    {
+      "id": "title",
+      "type": "title",
+      "sectionNo": "3-4-3",
+      "title": "hooks で自動化する",
+      "subtitle": "毎回手でやる確認・整形を、自動で挟む",
+      "narration": "AI に作業を任せていると、毎回きまって手でやる処理が出てきます。ファイルを直してもらったあとに、体裁を整える。あるコマンドの前に、念のため内容を確かめる。一つひとつは小さくても、毎回となると手間ですし、人がやる以上、忘れることもあります。決まりきった処理なら、人が覚えるのではなく、決めたタイミングで自動的に挟まってほしい。これを実現するのがフックです。"
+    },
+    {
+      "id": "intro-figure",
+      "type": "figure",
+      "src": "figures/3-4-3-hooks.png",
+      "alt": "フックを挟めるタイミングを作業のライフサイクル上に並べ、SessionStart（開始時）・PreToolUse（実行前・ブロック可）・PostToolUse（実行後）・Stop（完了時）の4イベントと各用途を示した概念図",
+      "narration": "全体像です。Claude Code が、依頼を受けて作業を進める一連の流れ、ライフサイクルの上に、処理を挟めるタイミングが並んでいます。開始時、ツールの実行前、実行後、そして完了時。この決まった地点に、自分が決めた処理を仕込んでおけます。順に見ていきます。"
+    },
+    {
+      "id": "what-is-hook",
+      "type": "keypoint",
+      "heading": "フックとは",
+      "revealAt": [0.1, 0.5],
+      "cards": [
+        { "title": "決めた時点で自動実行", "body": "ライフサイクルの特定の地点で\nあらかじめ決めた処理を\n自動で走らせる" },
+        { "title": "必ず走る", "body": "CLAUDE.md は「こうして」とお願い\nフックは決めた処理を必ず実行\n忘れず・人によるばらつきなく" }
+      ],
+      "narration": "フックは、Claude Code の作業の流れの特定の時点で、あらかじめ決めた処理を自動で実行する仕組みです。公式の言葉では、ライフサイクル内の特定のポイントで自動的に実行される、ユーザー定義の処理です。ここで、3-3-1 の CLAUDE.md と比べます。CLAUDE.md が、こうしてほしい、とお願いする前提なのに対し、フックは、決めた処理を必ず走らせます。一度仕込めば、その地点を通るたびに、忘れず、人によるばらつきなく実行されます。"
+    },
+    {
+      "id": "timings",
+      "type": "flow",
+      "heading": "挟めるタイミング",
+      "revealAt": [0.08, 0.32, 0.54, 0.76],
+      "steps": [
+        { "label": "SessionStart", "sub": "開始時に状況を渡す" },
+        { "label": "PreToolUse", "sub": "実行前・止められる", "emphasis": true },
+        { "label": "PostToolUse", "sub": "実行後に整形" },
+        { "label": "Stop", "sub": "完了時" }
+      ],
+      "tagline": "このほかにも多くのタイミングがある（種類は増減）",
+      "narration": "処理を挟めるタイミング、イベントは何種類もあります。代表的なものを流れの順に見ます。一つ目、セッション開始時、SessionStart。Claude Code を起動・再開したときです。二つ目、ツールの実行前、PreToolUse。AI が、ファイル編集やコマンド実行をする直前です。三つ目、実行後、PostToolUse。その操作が終わった直後。四つ目、応答の完了時、Stop。AI が一連の応答を終えたときです。とくに PreToolUse は、操作を実行前に止めることもできます。"
+    },
+    {
+      "id": "what-you-can-automate",
+      "type": "keypoint",
+      "heading": "たとえば、こんな自動化",
+      "revealAt": [0.1, 0.5],
+      "cards": [
+        { "title": "整える・まとめる", "body": "編集の後に体裁を整える（PostToolUse）\n開始時に状況をまとめて渡す（SessionStart）" },
+        { "title": "止める（安全策）", "body": "危険なコマンドの前に止める（PreToolUse）\n削除コマンドを検知してブロック\n承認だけに頼らず仕組みで防ぐ" }
+      ],
+      "narration": "これらを使うと、たとえば、こんな自動化ができます。ファイルを編集した後、PostToolUse で自動で体裁を整える。セッション開始時、SessionStart で、いまの状況をまとめて AI に渡す。そして、危険なコマンドの前、PreToolUse で実行を止めて確認させる。とくに、止める使い方は安全策として効きます。ファイルを削除するコマンドを検知したら、自動で止める。承認だけに頼らず、仕組みとして危ない操作を防げます。"
+    },
+    {
+      "id": "settings-json",
+      "type": "codeCompare",
+      "heading": "設定の形（settings.json の hooks）",
+      "rightAt": 0.5,
+      "left": {
+        "label": "CLAUDE.md（お願い）",
+        "file": "CLAUDE.md",
+        "lines": ["## 整形のお願い", "ファイルを編集したら、整形を", "実行してください。"],
+        "caption": "お願い（やり忘れも起きる）"
+      },
+      "right": {
+        "label": "settings.json（必ず走る）",
+        "file": ".claude/settings.json",
+        "lines": ["{ \"hooks\": {", "  \"PostToolUse\": [{", "    \"matcher\": \"Write|Edit\",", "    \"hooks\": [{ \"type\": \"command\",", "      \"command\": \"整形スクリプト\" }]", "  }]", "}}"],
+        "caption": "編集のたび、必ず整形（自動）"
+      },
+      "narration": "設定は、3-1-4 で触れた settings.json に書きます。フックという項目に、どのタイミングで、どの操作に対して、どの処理を走らせるかを書きます。左の CLAUDE.md は、整形してほしい、というお願いで、AI が従い忘れることもあります。右がフックの設定です。matcher で、ファイルを書く Write と Edit のときに、と絞り、その操作のたびに整形スクリプトが自動で走ります。お願いと違い、ここを通れば必ず実行されます。イベント名や記法は、2026年6月時点のものです。"
+    },
+    {
+      "id": "outro",
+      "type": "outro",
+      "heading": "まとめ",
+      "points": [
+        "フックは作業の流れの特定の時点で、決めた処理を必ず自動実行する（CLAUDE.md のお願いと違う）",
+        "タイミングは PreToolUse・PostToolUse・Stop・SessionStart など。PreToolUse は実行前に止められる",
+        "設定は settings.json の hooks に、タイミング・対象（matcher）・処理を書く。組み込み設計は Part4"
+      ],
+      "next": "3-4-4 プラグインで既製の機能を導入する",
+      "narration": "まとめます。フックは、Claude Code の作業の流れの特定の時点で、決めた処理を自動で実行する仕組みでした。CLAUDE.md のお願いと違い、決めた処理を必ず走らせます。挟めるタイミングには、実行前の PreToolUse、実行後の PostToolUse、完了時の Stop、開始時の SessionStart、などがあり、PreToolUse は、危険な操作を実行前に止めることもできます。設定は、settings.json のフックの項目に、タイミング、対象、処理を書きました。どんな自動化を組み込むと業務が楽になるか、という設計は Part4 で扱います。次の 3-4-4 では、ここまで見た、スキル、スラッシュコマンド、MCP、サブエージェント、フックといった拡張を、まとめて導入できるプラグインを扱います。自分で一から作らなくても、既製のものをマーケットプレイスから取り入れて能力を増やせることを押さえます。"
+    }
+  ]
+}

@@ -68,6 +68,9 @@ export const FlowScene = ({ scene }: { scene: FlowSceneType }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const audioFrames = scene.audioFrames ?? 400;
+  // fanout が5個以上だと縦に伸びて heading や tagline と干渉するため、その時だけ
+  // 間隔・余白・文字を詰めてコンパクトにする（3個以下の flow には影響しない）。
+  const manyFanout = (scene.fanout?.length ?? 0) >= 5;
 
   // 各ステップの開始フレーム。revealAt があればナレーションに合わせて上書きできる
   const stepAt = (i: number) =>
@@ -118,7 +121,7 @@ export const FlowScene = ({ scene }: { scene: FlowSceneType }) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: 42,
+              gap: manyFanout ? 18 : 42,
               marginLeft: 4,
             }}
           >
@@ -139,8 +142,8 @@ export const FlowScene = ({ scene }: { scene: FlowSceneType }) => {
                     style={{
                       background: theme.panelGrad,
                       borderRadius: 16,
-                      padding: "26px 60px",
-                      fontSize: 42,
+                      padding: manyFanout ? "14px 48px" : "26px 60px",
+                      fontSize: manyFanout ? 38 : 42,
                       fontWeight: 600,
                       color: theme.text,
                       marginLeft: 10,

@@ -111,6 +111,10 @@ export type NestScene = SceneBase & {
   type: "nest";
   /** 内側 → 外側の順 */
   layers: { label: string; desc: string }[];
+  /** 各層の登場タイミング（audioFrames に対する 0〜1）。layers と同じ内側→外側の並び。
+   *  省略時は既定の出現順（外側＝容れ物から先に出す）。ナレーションで各層を言う位置に
+   *  合わせるときは caption-times.mjs で字幕セグメント開始を確認して設定する。 */
+  revealAt?: number[];
   formula?: string;
 };
 
