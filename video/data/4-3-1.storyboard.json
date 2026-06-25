@@ -21,7 +21,7 @@
     {
       "id": "quality",
       "type": "keypoint",
-      "heading": "仕組みの品質を保つ",
+      "heading": "品質を保つ",
       "revealAt": [0.14, 0.55],
       "cards": [
         { "title": "簡潔さ", "body": "CLAUDE.md やスキルは要点に絞る\n長すぎると肝心の指示が埋もれる\nCLAUDE.md は200行以下が目安" },

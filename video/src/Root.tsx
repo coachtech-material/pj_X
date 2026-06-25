@@ -51,6 +51,7 @@ import s412 from "../data/4-1-2.props.json";
 import s413 from "../data/4-1-3.props.json";
 import s421 from "../data/4-2-1.props.json";
 import s422 from "../data/4-2-2.props.json";
+import s423 from "../data/4-2-3.props.json";
 import s431 from "../data/4-3-1.props.json";
 import s432 from "../data/4-3-2.props.json";
 
@@ -98,6 +99,7 @@ const sections = [
   s413,
   s421,
   s422,
+  s423,
   s431,
   s432,
 ] as unknown as SectionVideoProps[];
