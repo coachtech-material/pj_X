@@ -68,7 +68,6 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
-
 nav:
   - トップ: index.md
   - Part 1 導入:
@@ -77,9 +76,10 @@ nav:
       - 1-1-2 チャットAIとAIエージェントの違い: part-01/chapter-01/1-1-2.md
     - Chapter 2 セットアップと最初の成果物:
       - 1-2-1 Claude Code のインストールと認証: part-01/chapter-02/1-2-1.md
-      - 1-2-2 小さなタスクで最初の成果物を出す: part-01/chapter-02/1-2-2.md
+      - 1-2-2 VS Code を用意してプロジェクトを開く: part-01/chapter-02/1-2-2.md
+      - 1-2-3 小さなタスクで最初の成果物を出す: part-01/chapter-02/1-2-3.md
     - Chapter 3 AIに任せる思考とプロンプト:
-      - 1-3-1 ブログ記事を丸投げする: part-01/chapter-03/1-3-1.md
+      - 1-3-1 本をまるごと丸投げする: part-01/chapter-03/1-3-1.md
       - 1-3-2 プロンプトのフレームワークとAIに任せるリスク: part-01/chapter-03/1-3-2.md
       - 1-3-3 仮説で当てる: part-01/chapter-03/1-3-3.md
       - 1-3-4 構造化とアウトカムから決める完成条件: part-01/chapter-03/1-3-4.md
@@ -125,8 +125,12 @@ nav:
       - 3-4-2 サブエージェントで並列に任せる: part-03/chapter-04/3-4-2.md
       - 3-4-3 hooks で自動化する: part-03/chapter-04/3-4-3.md
       - 3-4-4 プラグインで既製の機能を導入する: part-03/chapter-04/3-4-4.md
-    - Chapter 5 記事を作る:
-      - 3-5-1 記事を一筆書きで作る: part-03/chapter-05/3-5-1.md
+    - Chapter 5 本を書き始める:
+      - 3-5-1 CLAUDE.md で本の前提を用意する: part-03/chapter-05/3-5-1.md
+      - 3-5-2 OUTLINE.md で目次を作る: part-03/chapter-05/3-5-2.md
+      - 3-5-3 rules で文体を用意する: part-03/chapter-05/3-5-3.md
+      - 3-5-4 プロンプトと検証ゲートで第1章を書く: part-03/chapter-05/3-5-4.md
+      - 3-5-5 skill-creator で執筆をスキルにする: part-03/chapter-05/3-5-5.md
   - Part 4 Claude Code 応用:
     - Chapter 1 ハーネスと仕組み化:
       - 4-1-1 プロンプト・コンテキスト・ハーネスの3階層: part-04/chapter-01/4-1-1.md
@@ -138,3 +142,21 @@ nav:
     - Chapter 3 品質・コスト・ガバナンス:
       - 4-3-1 品質とコストの最適化: part-04/chapter-03/4-3-1.md
       - 4-3-2 ガバナンス: part-04/chapter-03/4-3-2.md
+    - Chapter 4 本を書き切る:
+      - 4-4-1 requirements・design・tasks で本を設計する: part-04/chapter-04/4-4-1.md
+      - 4-4-2 サブエージェントで調査・レビューを分担する: part-04/chapter-04/4-4-2.md
+      - 4-4-3 settings とガバナンスを整える: part-04/chapter-04/4-4-3.md
+      - 4-4-4 検証ゲートで残りの章を書き切る: part-04/chapter-04/4-4-4.md
+  - Part 5 Git・GitHub:
+    - Chapter 1 Git の基礎:
+      - 5-1-1 バージョン管理と Git: part-05/chapter-01/5-1-1.md
+      - 5-1-2 リポジトリ・コミット・履歴: part-05/chapter-01/5-1-2.md
+      - 5-1-3 ブランチとマージ: part-05/chapter-01/5-1-3.md
+    - Chapter 2 GitHub で共有・公開する:
+      - 5-2-1 GitHub とは何か: part-05/chapter-02/5-2-1.md
+      - 5-2-2 GitHub をセットアップする: part-05/chapter-02/5-2-2.md
+      - 5-2-3 成果物をリポジトリに上げる: part-05/chapter-02/5-2-3.md
+      - 5-2-4 コミット・push・プルリクエスト: part-05/chapter-02/5-2-4.md
+      - 5-2-5 コミットしてはいけないものと .gitignore: part-05/chapter-02/5-2-5.md
+      - 5-2-6 レビューと取り込み・協働: part-05/chapter-02/5-2-6.md
+      - 5-2-7 GitHub Pages で公開する: part-05/chapter-02/5-2-7.md
