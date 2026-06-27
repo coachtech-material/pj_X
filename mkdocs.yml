@@ -134,11 +134,12 @@ nav:
   - Part 4 Claude Code 応用:
     - Chapter 1 ハーネスと仕組み化:
       - 4-1-1 プロンプト・コンテキスト・ハーネスの3階層: part-04/chapter-01/4-1-1.md
-      - 4-1-2 Skill・CLAUDE.md・設定に残す: part-04/chapter-01/4-1-2.md
+      - 4-1-2 うまくいった仕事を仕組みに残す: part-04/chapter-01/4-1-2.md
       - 4-1-3 資産化して属人化を解消する: part-04/chapter-01/4-1-3.md
     - Chapter 2 仕様駆動（SDD）:
-      - 4-2-1 仕様駆動の考え方: part-04/chapter-02/4-2-1.md
-      - 4-2-2 要件・設計・タスクの3段で固める: part-04/chapter-02/4-2-2.md
+      - 4-2-1 仕様駆動開発（SDD）とは: part-04/chapter-02/4-2-1.md
+      - 4-2-2 なぜ先に固めると効くのか: part-04/chapter-02/4-2-2.md
+      - 4-2-3 要件・設計・タスクの3段で固める: part-04/chapter-02/4-2-3.md
     - Chapter 3 品質・コスト・ガバナンス:
       - 4-3-1 品質とコストの最適化: part-04/chapter-03/4-3-1.md
       - 4-3-2 ガバナンス: part-04/chapter-03/4-3-2.md
@@ -160,3 +161,18 @@ nav:
       - 5-2-5 コミットしてはいけないものと .gitignore: part-05/chapter-02/5-2-5.md
       - 5-2-6 レビューと取り込み・協働: part-05/chapter-02/5-2-6.md
       - 5-2-7 GitHub Pages で公開する: part-05/chapter-02/5-2-7.md
+  - Part 6 アプリ開発実践:
+    - Chapter 1 全体像と土台づくり:
+      - 6-1-1 何を作るか・なぜ開発まで踏み込むのか: part-06/chapter-01/6-1-1.md
+      - 6-1-2 開発環境とCloudflareを用意する: part-06/chapter-01/6-1-2.md
+      - 6-1-3 cc-sdd を導入して仕様駆動の土台を作る: part-06/chapter-01/6-1-3.md
+      - 6-1-4 auto モードとMCP・機密の線引きを整える: part-06/chapter-01/6-1-4.md
+    - Chapter 2 仕様を固めて実装する:
+      - 6-2-1 cc-sddで要件・設計・タスクを固める: part-06/chapter-02/6-2-1.md
+      - 6-2-2 データ基盤を作る: part-06/chapter-02/6-2-2.md
+      - 6-2-3 AI要約機能を作る: part-06/chapter-02/6-2-3.md
+      - 6-2-4 画面を作ってつなぐ: part-06/chapter-02/6-2-4.md
+    - Chapter 3 公開して仕組みにする:
+      - 6-3-1 デプロイして公開する: part-06/chapter-03/6-3-1.md
+      - 6-3-2 ハーネスに残して保守できるようにする: part-06/chapter-03/6-3-2.md
+      - 6-3-3 業務成果に接続して締めくくる: part-06/chapter-03/6-3-3.md
