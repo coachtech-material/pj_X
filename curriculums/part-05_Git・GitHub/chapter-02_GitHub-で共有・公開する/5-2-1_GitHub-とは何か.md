@@ -17,6 +17,10 @@
 !!! note "前提知識"
     このセクションは 5-1-3「ブランチとマージ」の内容を前提としています。
 
+<video controls preload="metadata" playsinline width="100%">
+  <source src="https://github.com/coachtech-material/pj_X/releases/download/videos/5-2-1.mp4" type="video/mp4">
+</video>
+
 ## このセクションで学ぶこと
 
 - Git と GitHub が別物であること（手元の版管理ツールと、それを載せる Web プラットフォーム）
@@ -32,6 +36,8 @@ GitHub とは何かを、Git との違いと提供機能の全体像から押さ
 Chapter 5-1 で、手元に Git が動く状態を作り、変更を記録できるようになりました。ただ、その記録はすべて自分のパソコンの中だけにあります。
 
 このままでは、パソコンが壊れれば記録ごと失われます。他の人に渡して一緒に直すこともできませんし、世に公開して読んでもらうこともできません。手元の Git の記録を、インターネット上の安全な場所に置き、共有・公開・協働の土台にする。それを担うのが GitHub です。
+
+![手元のパソコンにあるローカルリポジトリと、GitHub 上のリモートリポジトリを、push（手元から GitHub へ）と pull（GitHub から手元へ）で同期する関係を示した概念図](../../../assets/diagrams/output/5-2-1-local-and-remote.png)
 
 ---
 

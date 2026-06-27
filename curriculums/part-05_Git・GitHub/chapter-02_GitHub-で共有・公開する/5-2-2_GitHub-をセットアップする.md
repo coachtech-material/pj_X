@@ -24,6 +24,8 @@ GitHub を使い始める準備として、アカウントを作り、手元か�
 
 認証が必要なのは、誰でもあなたのリポジトリに書き込めては困るからです。かつてはユーザー名とパスワードで接続できましたが、安全性の理由からパスワードをそのまま使う方式は廃止されました（GitHub 公式ドキュメント[GitHub への認証について](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)、2026年6月時点）。いまは、トークンや鍵を使う、より安全な方法が標準です。その中で非エンジニアに最も平易なのが、これから使う GitHub CLI（`gh`）です。ブラウザ経由で認証でき、git の push に必要な認証も `gh` が肩代わりしてくれます。
 
+![GitHub を使い始めるための3つの準備を順に示した概念図。STEP1 で github.com にアカウントを作り、STEP2 で手元のターミナルに GitHub CLI（gh）を導入し、STEP3 で gh auth login で認証してつなぐ流れを表す](../../../assets/diagrams/output/5-2-2-github-setup.png)
+
 ---
 
 ## セットアップ前の確認
