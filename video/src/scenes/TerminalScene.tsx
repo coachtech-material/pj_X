@@ -353,11 +353,13 @@ export const TerminalScene = ({ scene }: { scene: TerminalSceneType }) => {
       <div
         style={{
           position: "absolute",
-          top: 206,
+          top: 200,
           left: 0,
           right: 0,
+          bottom: 200,
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <div style={{ ...springIn(frame, fps, 8), width: 1180 }}>
