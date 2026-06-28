@@ -41,7 +41,7 @@
 
 Node.js は、JavaScript で書かれたプログラムをパソコン上で動かすための実行環境です。Next.js も Cloudflare の道具も Node.js の上で動きます。Node.js を入れると、パッケージ（部品）を管理する **npm** も一緒に入ります。
 
-Part1 で使ったターミナル（macOS は Terminal、Windows は PowerShell）を開き、OS に合わせて次のいずれかで導入します。
+VS Code の統合ターミナル（開き方は 1-2-2）を開き、OS に合わせて次のいずれかで導入します。
 
 === "macOS"
 
