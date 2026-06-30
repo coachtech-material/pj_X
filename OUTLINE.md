@@ -488,15 +488,15 @@
   - 前提: [5-2-3, 2-5-3]
   - 参考資料: GitHub: [ファイルを無視する（.gitignore）](https://docs.github.com/ja/get-started/getting-started-with-git/ignoring-files)。秘密情報の扱いは [Claude Code のセキュリティ](https://code.claude.com/docs/ja/security)
 - **5-2-6 レビューと取り込み・協働**
-  - 種類: 概念
-  - ゴール: プルリクエストでのレビュー（変更の確認・コメント）と取り込み（マージ）、他の人の変更を手元に取り込む（pull／同期）こと、Issues で課題を管理し複数人で進める協働の基本を把握する。Claude Code が出した変更を人がレビューして取り込む、という協働の形を理解する。
-  - 前提: [5-2-4]
-  - 参考資料: GitHub: [プルリクエストのレビュー](https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews)／[Issues について](https://docs.github.com/ja/issues/tracking-your-work-with-issues/about-issues)
+  - 種類: 概念（末尾にやってみようを置く）
+  - ゴール: プルリクエストでのレビュー（変更の確認・コメント）と取り込み（マージ）、他の人の変更を手元に取り込む（pull／同期・clone）こと、Issues で課題を管理し複数人で進める協働を把握する。Issues は担当者・ラベル・マイルストーン・プルリクエスト連携（説明に Closes #N と書くとマージで対応 Issue が自動クローズ）まで具体的に扱う。Claude Code が gh 経由で Issue を操作でき、「この Issue を解決して」でブランチ作成→修正→プルリクエストまで委任できることも押さえる。末尾のやってみようで、自分の成果物（my-book）に対し Issue 起票→ブランチ→Claude Code に修正→プルリクエスト→自分でレビュー→マージ→Issue 自動クローズ→作業ブランチ削除→pull の GitHub Flow を一周体験する（協働中核を概念で終わらせず一度手を動かす）。
+  - 前提: [5-2-4, 5-2-3]
+  - 参考資料: GitHub: [プルリクエストのレビュー](https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews)／[Issues について](https://docs.github.com/ja/issues/tracking-your-work-with-issues/about-issues)／[プルリクエストを Issue にリンクする](https://docs.github.com/ja/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue)。Claude Code が gh で代行する箇所は [一般的なワークフロー](https://code.claude.com/docs/ja/common-workflows) を併記
 - **5-2-7 GitHub Pages で公開する**
   - 種類: 混合
   - ゴール: 5-2-3 で GitHub に上げた、4-4 で書き切った自分の入門書（書籍。章・節）を、Claude Code に読みやすい静的サイト（HTML/CSS）へ変換させ、公開ソース（ブランチ・フォルダ）と入口ファイル（index）を構成して GitHub Pages として公開し、公開 URL で表示されるところまで実行できる。push を契機に GitHub が自動で公開する様子から、変更が自動で反映される仕組み（CI/CD の入口）を最小限に押さえる。仕上げて終わりにせず公開して読まれる状態に置き、書籍アーク（1-3-1→3-5→4-4→5-2-3→5-2-7）の到達点とする（これまでの「Claude Code に委任して成果物を作り公開する」進め方を、自分の本のサイト化として通す）。
   - 前提: [5-2-3]
-  - 参考資料: GitHub: [GitHub Pages とは](https://docs.github.com/ja/pages/getting-started-with-github-pages/what-is-github-pages)／[GitHub Pages サイトの作成](https://docs.github.com/ja/pages/getting-started-with-github-pages/creating-a-github-pages-site)。書籍の md は Claude Code に静的サイト（HTML/CSS）へ変換させてブランチから公開する（MkDocs 等のジェネレータは使わない。生成・公開手順は執筆時に実機で確認し「○○時点」を明記する）
+  - 参考資料: GitHub: [GitHub Pages とは](https://docs.github.com/ja/pages/getting-started-with-github-pages/what-is-github-pages)／[GitHub Pages サイトの作成](https://docs.github.com/ja/pages/getting-started-with-github-pages/creating-a-github-pages-site)。書籍の md は Claude Code に静的サイト（HTML/CSS）へ変換させてブランチから公開する（専用のサイト生成ツール〔ジェネレータ〕は使わず、変換も Claude Code に任せる。生成・公開手順は執筆時に実機で確認し「○○時点」を明記する）
 
 ---
 
@@ -578,10 +578,10 @@
 
 ## ハンズオンの共通方針（Part1〜Part5）
 
-Part1〜Part5 の独立ハンズオン（1-3-1・3-5-1〜3-5-5・4-4-1〜4-4-4・5-2-2・5-2-3・5-2-7）は、一つの共通題材「自分の入門書（書籍）」を一気通貫で育てる。本セクションがその体験設計の正であり、各 Section のゴールはこれに従う。
+Part1〜Part5 の独立ハンズオンと一部の「やってみよう」（1-3-1・3-5-1〜3-5-5・4-4-1〜4-4-4・5-2-2・5-2-3・5-2-6・5-2-7）は、一つの共通題材「自分の入門書（書籍）」を一気通貫で育てる。本セクションがその体験設計の正であり、各 Section のゴールはこれに従う。
 
 **共通題材＝書籍（入門書）**
-- 学習者が選んだテーマで「自分の入門書」を1冊育てる。1-2-3 でテーマ決定（`theme.md`）→ 1-3-1 丸投げ → 3-5 前提・目次・文体を整え第1章＋スキル → 4-4 SDD＋ハーネスで全章 → 5-2-3 GitHub に上げる → 5-2-7 公開。
+- 学習者が選んだテーマで「自分の入門書」を1冊育てる。1-2-3 でテーマ決定（`theme.md`）→ 1-3-1 丸投げ → 3-5 前提・目次・文体を整え第1章＋スキル → 4-4 SDD＋ハーネスで全章 → 5-2-3 GitHub に上げる → 5-2-6 Issue で改善を一周 → 5-2-7 公開。
 - 本の中身は章ごとのファイル（3-5 では `chapters/NN-タイトル.md`、4-4 で題材ごとの `output/<題材>/` に整理）。長ければ章内を見出しで分ける。仕事のマニュアル化・ナレッジ化にも、関心テーマの学び直しにも転用できる（題材は受講者が選ぶ）。
 
 **プロンプトの見せ方（重要）**
